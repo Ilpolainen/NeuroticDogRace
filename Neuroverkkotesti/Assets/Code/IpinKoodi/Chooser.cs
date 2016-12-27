@@ -5,7 +5,7 @@ public class Chooser : MonoBehaviour {
 
 		private int pointer;
 		private Steerable[] objects;
-		public God god;
+		public Trainer god;
 		public FileManager fileManager;
 	// Use this for initialization
 		void Start () {
@@ -36,7 +36,7 @@ public class Chooser : MonoBehaviour {
 
 		public void SetObjects()
 		{
-			GameObject[] emptyObs = god.GetUnits ();
+			GameObject[] emptyObs = god.units;
 			objects = new Steerable[emptyObs.Length];
 			for (int i = 0; i < emptyObs.Length; i++) {
 				objects [i] = emptyObs [i].GetComponent<Steerable> ();

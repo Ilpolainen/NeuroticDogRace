@@ -8,8 +8,7 @@ public class Neuron  {
 
 	[XmlAttribute("neuronWeights")]
 	public float[] weights;
-	[XmlAttribute("function")]
-	public int functionType;
+
 
 	//---------------------------
 
@@ -22,15 +21,13 @@ public class Neuron  {
 
 	public Neuron(Neuron neuron) {
 		this.weights = neuron.GetWeights ();
-		this.functionType = neuron.GetFunctionType ();
 	}
 
 
 
-	public Neuron(int inputSize, int functionType) {
+	public Neuron(int inputSize) {
 		weights = new float[inputSize + 1];
 		NeuralUtilities.RandomWeights (weights);
-		this.functionType = functionType;
 	}
 
 
@@ -49,7 +46,7 @@ public class Neuron  {
 			}
 			sum += weights [input.Length] * weights [input.Length] *  weights [input.Length];
 		}
-		return Sigmoid.Value (sum);
+		return NeuralFunction.Value (sum);
 	}
 		
 
@@ -61,17 +58,17 @@ public class Neuron  {
 
 
 
-	public void Mutate(int weight, float temperature, float volume)
+	public void Mutate(int weight,  float volume)
 	{
-		weights[weight] = Sigmoid.Mutate (weight, temperature, volume);
+		weights[weight] = NeuralFunction.Mutate (weights[weight], volume);
 	}
 
-	public Neuron copyWithMutation(int numberOfMutations, float temperature, float volume)
+	public Neuron copyWithMutation(int numberOfMutations, float volume)
 	{
 		Neuron neuron = new Neuron (this);
 		for (int i = 0; i < numberOfMutations; i++) {
 			int weight = Random.Range (0, weights.Length - 1);
-			weights[weight] = Sigmoid.Mutate (weights[weight], temperature, volume);
+			weights[weight] = NeuralFunction.Mutate (weights[weight], volume);
 		}
 		return neuron;
 	}
@@ -92,10 +89,7 @@ public class Neuron  {
 		return weights;
 	}
 
-	public int GetFunctionType()
-	{
-		return functionType;
-	}
+
 
 
 	//---------------------------

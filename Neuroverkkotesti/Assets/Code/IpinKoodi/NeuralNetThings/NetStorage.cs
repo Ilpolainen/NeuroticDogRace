@@ -59,4 +59,9 @@ public class NetStorage {
 		}
 		this.neuralNets [index] = net;
 	}
+
+	public void SetNeuralNets(List<NeuralNet> nets)
+	{
+		this.neuralNets = nets;
+	}
 }

@@ -5,21 +5,32 @@ using System;
 
 public class Steerable : MonoBehaviour {
 
+	public int id;
+
 	public GameObject physGo;
 	private Rigidbody rb;
+	public Transform target;
 	private Renderer[] renderers;
 	private HingeJoint[] joints;
 	public Transform[] controlPoints;
+
+	private Vector3[] initialPositions;
+	private Quaternion[] initialRotations;
+
+
 	private float[] positionInfo;
 
+	public Touch[] touches;
 
-	// Use this for initialization
+
 
 	void Start () {
 		
 		rb = physGo.GetComponent<Rigidbody> ();
+		Initialize ();
 		renderers = physGo.GetComponentsInChildren<Renderer> ();
 		joints = physGo.GetComponentsInChildren<HingeJoint> ();
+		touches = new Touch[4];
 
 		SetControlPoints ();
 		positionInfo = new float[controlPoints.Length * 3];
@@ -30,7 +41,7 @@ public class Steerable : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		UpDatePositionInfo ();
+		
 		if (Input.GetKeyDown("space")) {
 			hide ();
 		}
@@ -41,7 +52,7 @@ public class Steerable : MonoBehaviour {
 
 	void FixedUpdate()
 	{
-		
+		UpDatePositionInfo ();
 	}
 
 
@@ -53,10 +64,10 @@ public class Steerable : MonoBehaviour {
 		}
 		for (int i = 0; i < joints.Length; i++) {
 			//Debug.Log ("Force " + floats [i]);
-			float command = floats [i]*400;
+			float command = floats [i]*100;
 			JointMotor motor = joints [i].motor;
 			motor.targetVelocity = command;
-			motor.force = 50;
+			motor.force = 70;
 			joints [i].motor = motor;
 		}
 	}
@@ -64,18 +75,28 @@ public class Steerable : MonoBehaviour {
 
 	void UpDatePositionInfo() 
 	{	
-		positionInfo [0] = controlPoints [0].position.x;
-		positionInfo [1] = controlPoints [0].position.y;
-		positionInfo [2] = controlPoints [0].position.z;
-		int i = 3;
-		for (int cp = 1; cp < controlPoints.Length; cp++) {
+		positionInfo [0] = controlPoints [0].position.y;
+		positionInfo [1] = controlPoints [1].position.y;
+		positionInfo [2] = controlPoints [2].position.y;
+		if (target == null) {
+			positionInfo [3] = 0;
+			positionInfo [4] = 0;
+		} else {
+			positionInfo [3] = controlPoints [0].position.x - target.position.x;
+			positionInfo [4] = controlPoints [0].position.z - target.position.z;
+		}
+		//UPDATES THE FOOT-TOUCHES
+		for (int j = 0; j < 4; j++) {
+			positionInfo [j + 5] = touches [j].touching;
+		}
+		int i = 9;
+		for (int cp = 3; cp < controlPoints.Length; cp++) {
 			positionInfo [i] = controlPoints[cp].position.x - controlPoints[0].position.x;
 			i++;
 			positionInfo [i] = controlPoints[cp].position.y - controlPoints[0].position.y;
 			i++;
 			positionInfo [i] = controlPoints[cp].position.z - controlPoints[0].position.z;
 			i++;
-			//print ("Controlpoint " + controlPoints [cp].gameObject + ": (" + positionInfo [i - 3] + "," + positionInfo [i - 2] + "," + positionInfo [i - 1] + ")");
 		}
 	}
 
@@ -108,58 +129,61 @@ public class Steerable : MonoBehaviour {
 
 	void SetControlPoints()
 	{
-		controlPoints = new Transform[10];
-
-		Transform centrePoint = physGo.transform;
-		controlPoints [0] = centrePoint;
-
+		controlPoints = new Transform[8];
 		Transform armature = physGo.transform.GetChild (0).transform;
 		Transform pelvis = armature.GetChild (8).transform;
+		Transform measurePointBack = physGo.transform.GetChild (2).transform;
+		Transform measurePointFront = physGo.transform.GetChild (3).transform;
+		Transform measurePointHead = physGo.transform.GetChild (4).transform;
+
+		controlPoints [0] = measurePointBack;
+		controlPoints [1] = measurePointFront;
+		controlPoints [2] = measurePointHead;
+
 
 		Transform neck = pelvis.GetChild (0).transform.GetChild (0).transform;
-		controlPoints [1] = neck;
-
+		controlPoints [3] = neck;
 		//UPPERLEGS
+		Transform head = neck.GetChild(0).transform;
 
 		Transform BLU = armature.GetChild (2).transform;
 		//controlPoints [2] = BLU;
-
 		Transform BRU = armature.GetChild (3).transform;
 		//controlPoints [3] = BRU;
-
 		Transform FLU = armature.GetChild (6).transform;
 		//controlPoints [6] = FLU;
-
 		Transform FRU = armature.GetChild (7).transform;
 		//controlPoints [7] = FRU;
 
 		//LOWERLEGS
 
 		Transform BLD = BLU.GetChild(0).transform;
-		controlPoints [2] = BLD;
+		touches [0] = BLD.GetComponent<Touch> ();
 
+		//controlPoints [4] = BLD;
 		Transform BRD = BRU.GetChild(0).transform;
-		controlPoints [3] = BRD;
-
+		touches [1] = BRD.GetComponent<Touch> ();
+		//controlPoints [5] = BRD;
 		Transform FLD = FLU.GetChild(0).transform;
-		controlPoints [4] = FLD;
-
+		touches [2] = FLD.GetComponent<Touch> ();
+		//controlPoints [6] = FLD;
 		Transform FRD = FRU.GetChild(0).transform;
-		controlPoints [5] = FRD;
+		touches [3] = FRD.GetComponent<Touch> ();
+		//controlPoints [7] = FRD;
 
 		//FEET
 
 		Transform BLFoot = BLD.GetChild (0).transform;
-		controlPoints [6] = BLFoot;
+		controlPoints [4] = BLFoot;
 
 		Transform BRFoot = BRD.GetChild (0).transform;
-		controlPoints [7] = BRFoot;
+		controlPoints [5] = BRFoot;
 
 		Transform FLFoot = FLD.GetChild (0).transform;
-		controlPoints [8] = FLFoot;
+		controlPoints [6] = FLFoot;
 
 		Transform FRFoot = FRD.GetChild (0).transform;
-		controlPoints [9] = FRFoot;
+		controlPoints [7] = FRFoot;
 
 	}
 
@@ -174,5 +198,42 @@ public class Steerable : MonoBehaviour {
 		for (int i = 0; i < controlPoints.Length; i++) {
 			print ("Control point: " + i + ": " + controlPoints [i]);
 		}
+	}
+
+	private void Initialize() 
+	{
+		Transform[] transforms = physGo.GetComponentsInChildren<Transform> ();
+		initialPositions = new Vector3[transforms.Length];
+		initialRotations = new Quaternion[transforms.Length];
+		for(int i = 0; i < transforms.Length; i++){
+			initialPositions [i] = transforms [i].position;
+			initialRotations [i] = transforms [i].rotation;
+		}
+
+	}
+
+	public void Reset() {
+		HingeJoint[] hinges = physGo.GetComponentsInChildren<HingeJoint> ();
+		foreach (HingeJoint joint in hinges) {
+			JointMotor motor = joint.motor;
+			motor.targetVelocity = 0;
+			motor.force = 0;
+			joint.motor = motor;
+		}
+		Transform[] transforms = physGo.GetComponentsInChildren<Transform> ();
+		Rigidbody[] rigidbodies = physGo.GetComponentsInChildren<Rigidbody> ();
+
+		foreach (Rigidbody rb in rigidbodies) {
+			rb.velocity = Vector3.zero;
+			rb.angularVelocity = Vector3.zero;
+		}
+		for (int i = 0; i < transforms.Length; i++) {
+			transforms[i].position = initialPositions[i];
+			transforms [i].rotation = initialRotations[i];
+		}
+	}
+
+	public void PrintValueMeasures() {
+		print ("Back: " + positionInfo[0] + ", Front: " + positionInfo[1]  + ", Head: " + positionInfo[2]);
 	}
 }

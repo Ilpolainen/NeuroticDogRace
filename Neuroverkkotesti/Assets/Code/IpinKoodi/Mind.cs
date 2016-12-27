@@ -4,25 +4,24 @@ namespace Code {
 
 	public class Mind : MonoBehaviour {
 
-		private NeuralNet neuralnet;
-		private NeuronFunction function;
-		private int[] structure;
+		public NeuralNet neuralnet;
+		private NeuralFunction function;
+		public int[] structure;
+		public int[] hiddenLayers;
 		private Steerable steerable;
-		int S;
+		private bool ready;
+		public int id;
 	// Use this for initialization
 		void Start () {
 			steerable = this.gameObject.GetComponent<Steerable> ();
-			S = 0;
+			ready = false;
 		}
 	
 	// Update is called once per frame
-		void Update () {
-			if (S < 10) {
-				S++;
-			} else if (S == 10) {
+		void FixedUpdate () {
+			if (!ready) {
 				SetNeuralFunctionAndStructure ();
-
-				S++;
+				ready = true;
 			} else {
 				steerable.Steer (neuralnet.GiveOutput (steerable.GetPositionInfo()));
 			}
@@ -30,15 +29,20 @@ namespace Code {
 
 		public void SetNeuralFunctionAndStructure() 
 		{
-			structure = new int[3];
-			structure [0] = steerable.GetPositionInfo ().Length;
-			structure [1] = 8;
-			structure [2] = steerable.GetJoints ().Length;
-			neuralnet = new NeuralNet (structure, 1);
-		}
+			if (hiddenLayers == null) {
+				structure = new int[3];
+				structure [1] = 8;
+			} else {
+				structure = new int[hiddenLayers.Length + 2];
+				for (int i = 0; i < hiddenLayers.Length; i++) {
+					structure [i + 1] = hiddenLayers [i];
+				}
+			}
 
-		public NeuralNet GetNeuralNet() {
-			return this.neuralnet;
+			structure [0] = steerable.GetPositionInfo ().Length;
+			structure [structure.Length - 1] = steerable.GetJoints ().Length;
+			neuralnet = new NeuralNet (structure);
+			neuralnet.id = id;
 		}
 
 		public void SetNeuralNet(NeuralNet net) {
