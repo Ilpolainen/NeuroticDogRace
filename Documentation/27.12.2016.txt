@@ -1,0 +1,5 @@
+##27.12.2016
+
+- I refactored quite a lot and made saving utility easy to use. 
+
+- The most important part however was making the training-attributes easily accessible via Unity's interface. Now it is possible and easy to define all these properties: the structure and amount of hidden layers, measurepoint weights, starting mutation-interval, interval cooldown ratio, population size, elite population size and and the amount of random elites chosen. I also found an easy way to fasten things up quite a lot.
