@@ -9,7 +9,7 @@ public class Steerable : MonoBehaviour {
 
 	public GameObject physGo;
 	private Rigidbody rb;
-	public Transform target;
+	public GameObject target;
 	private Renderer[] renderers;
 	private HingeJoint[] joints;
 	public Transform[] controlPoints;
@@ -19,26 +19,29 @@ public class Steerable : MonoBehaviour {
 
 
 	private float[] positionInfo;
-
 	public Touch[] touches;
 
+	public bool ready;
 
-
-	void Start () {
-		
+	public void Initialize() 
+	{
 		rb = physGo.GetComponent<Rigidbody> ();
-		Initialize ();
+		Transform[] transforms = physGo.GetComponentsInChildren<Transform> ();
+		initialPositions = new Vector3[transforms.Length];
+		initialRotations = new Quaternion[transforms.Length];
+		for(int i = 0; i < transforms.Length; i++){
+			initialPositions [i] = transforms [i].position;
+			initialRotations [i] = transforms [i].rotation;
+		}
 		renderers = physGo.GetComponentsInChildren<Renderer> ();
 		joints = physGo.GetComponentsInChildren<HingeJoint> ();
 		touches = new Touch[4];
 
 		SetControlPoints ();
-		positionInfo = new float[controlPoints.Length * 3];
+		positionInfo = new float[controlPoints.Length * 3 + 1];
 		setMotors ();
-		UpDatePositionInfo ();
-
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		
@@ -52,23 +55,21 @@ public class Steerable : MonoBehaviour {
 
 	void FixedUpdate()
 	{
-		UpDatePositionInfo ();
+		if (ready) {
+			UpDatePositionInfo ();
+		}
 	}
 
 
-	public void Steer(float[] floats) 
+	public void Steer(float[] floats, float force) 
 	{
-		if (floats.Length != joints.Length) {
-			Debug.LogError ("Wrong amount of commands!");
-			return;
-		}
 		for (int i = 0; i < joints.Length; i++) {
-			//Debug.Log ("Force " + floats [i]);
-			float command = floats [i]*100;
-			JointMotor motor = joints [i].motor;
-			motor.targetVelocity = command;
-			motor.force = 70;
-			joints [i].motor = motor;
+			float command = floats [i];
+			JointSpring spring = joints [i].spring;
+			spring.targetPosition = command*force;
+			spring.damper = 100;
+			spring.spring = 400;
+			joints [i].spring = spring;
 		}
 	}
 
@@ -82,15 +83,15 @@ public class Steerable : MonoBehaviour {
 			positionInfo [3] = 0;
 			positionInfo [4] = 0;
 		} else {
-			positionInfo [3] = controlPoints [0].position.x - target.position.x;
-			positionInfo [4] = controlPoints [0].position.z - target.position.z;
+			positionInfo [3] = controlPoints [8].localPosition.x - target.transform.localPosition.x;
+			positionInfo [4] = controlPoints [8].localPosition.z - target.transform.localPosition.z;
 		}
 		//UPDATES THE FOOT-TOUCHES
 		for (int j = 0; j < 4; j++) {
 			positionInfo [j + 5] = touches [j].touching;
 		}
 		int i = 9;
-		for (int cp = 3; cp < controlPoints.Length; cp++) {
+		for (int cp = 3; cp < controlPoints.Length-1; cp++) {
 			positionInfo [i] = controlPoints[cp].position.x - controlPoints[0].position.x;
 			i++;
 			positionInfo [i] = controlPoints[cp].position.y - controlPoints[0].position.y;
@@ -98,6 +99,7 @@ public class Steerable : MonoBehaviour {
 			positionInfo [i] = controlPoints[cp].position.z - controlPoints[0].position.z;
 			i++;
 		}
+		positionInfo [positionInfo.Length - 1] = controlPoints [8].rotation.eulerAngles.z -90;
 	}
 
 	public float[] GetPositionInfo() {
@@ -119,9 +121,10 @@ public class Steerable : MonoBehaviour {
 	void setMotors() 
 	{
 		foreach (HingeJoint joint in joints) {
-			joint.useMotor = true;
+			joint.useSpring = true;
 			//print (joint.gameObject);
 		}
+		//print ("joints" + joints.Length);
 	}
 
 
@@ -129,9 +132,10 @@ public class Steerable : MonoBehaviour {
 
 	void SetControlPoints()
 	{
-		controlPoints = new Transform[8];
+		controlPoints = new Transform[9];
 		Transform armature = physGo.transform.GetChild (0).transform;
 		Transform pelvis = armature.GetChild (8).transform;
+		controlPoints [8] = armature;
 		Transform measurePointBack = physGo.transform.GetChild (2).transform;
 		Transform measurePointFront = physGo.transform.GetChild (3).transform;
 		Transform measurePointHead = physGo.transform.GetChild (4).transform;
@@ -200,17 +204,6 @@ public class Steerable : MonoBehaviour {
 		}
 	}
 
-	private void Initialize() 
-	{
-		Transform[] transforms = physGo.GetComponentsInChildren<Transform> ();
-		initialPositions = new Vector3[transforms.Length];
-		initialRotations = new Quaternion[transforms.Length];
-		for(int i = 0; i < transforms.Length; i++){
-			initialPositions [i] = transforms [i].position;
-			initialRotations [i] = transforms [i].rotation;
-		}
-
-	}
 
 	public void Reset() {
 		HingeJoint[] hinges = physGo.GetComponentsInChildren<HingeJoint> ();
@@ -233,7 +226,30 @@ public class Steerable : MonoBehaviour {
 		}
 	}
 
+	public void SetTarget(GameObject target) {
+		this.target = target;
+	}
+
 	public void PrintValueMeasures() {
-		print ("Back: " + positionInfo[0] + ", Front: " + positionInfo[1]  + ", Head: " + positionInfo[2]);
+		print ("Back: " + positionInfo[0] + ", Front: " + positionInfo[1]  + ", Head: " + positionInfo[2] + "Rotation: " + (controlPoints[0].rotation.eulerAngles.x - 90));
+	}
+
+	public void DebugJoint(int k, float[] floats,int volume) {
+		for (int i = 0; i < joints.Length; i++) {
+
+			//Debug.Log ("Force " + floats [i]);
+			float command = floats [i];
+			JointSpring spring = joints [i].spring;
+			spring.damper = 200;
+			spring.spring = 500;
+			if (i == k) {
+				Debug.Log (joints [i].gameObject);
+				spring.targetPosition = volume;
+			} else {
+				//motor.targetVelocity = command*4;
+				spring.targetPosition = 0;
+			}
+			joints [i].spring = spring;
+		}
 	}
 }

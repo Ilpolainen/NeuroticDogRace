@@ -55,6 +55,7 @@
      <Compile Include="Assets\Code\IpinKoodi\DataStructures\NeuralNetHeap.cs" />
      <Compile Include="Assets\Code\IpinKoodi\Evaluator.cs" />
      <Compile Include="Assets\Code\IpinKoodi\FileManager.cs" />
+     <Compile Include="Assets\Code\IpinKoodi\GeneticTrainer.cs" />
      <Compile Include="Assets\Code\IpinKoodi\Mind.cs" />
      <Compile Include="Assets\Code\IpinKoodi\NeuralNetThings\Layer.cs" />
      <Compile Include="Assets\Code\IpinKoodi\NeuralNetThings\NetStorage.cs" />
@@ -62,9 +63,10 @@
      <Compile Include="Assets\Code\IpinKoodi\NeuralNetThings\NeuralNet.cs" />
      <Compile Include="Assets\Code\IpinKoodi\NeuralNetThings\NeuralUtilities.cs" />
      <Compile Include="Assets\Code\IpinKoodi\NeuralNetThings\Neuron.cs" />
+     <Compile Include="Assets\Code\IpinKoodi\SimAnnealingTrainer.cs" />
      <Compile Include="Assets\Code\IpinKoodi\Steerable.cs" />
+     <Compile Include="Assets\Code\IpinKoodi\Target.cs" />
      <Compile Include="Assets\Code\IpinKoodi\Touch.cs" />
-     <Compile Include="Assets\Code\IpinKoodi\Trainer.cs" />
      <Compile Include="Assets\Code\MockNet.cs" />
      <Compile Include="Assets\Code\PhysicalObject.cs" />
      <Compile Include="Assets\Code\VisualObject.cs" />

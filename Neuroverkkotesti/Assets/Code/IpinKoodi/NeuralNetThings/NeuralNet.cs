@@ -34,7 +34,7 @@ public class NeuralNet {
 			layers [i - 1] = new Layer(structure [i], structure [i - 1]);
 		}
 		outputWeights = new float[structure[structure.Length - 1]];
-		NeuralUtilities.RandomWeights (outputWeights);
+		NeuralUtilities.RandomWeights (3, outputWeights);
 	}
 
 	public NeuralNet(NeuralNet neuralnet) {
@@ -73,13 +73,13 @@ public class NeuralNet {
 		}
 	}
 
-	public NeuralNet Divide(int weightsAmount, float neuronVolume,int outPutAmounts, float outputVolume) 
+	public NeuralNet Divide(int mutationCount, float neuronVolume, int outPutAmounts, float outputVolume) 
 	{
 		NeuralNet mutated = new NeuralNet (this);
-		for (int i = 0; i < weightsAmount - 1; i++) {
+		for (int i = 0; i < mutationCount - 1; i++) {
 			Layer l = mutated.GetLayers () [Random.Range (0, mutated.GetLayers ().Length - 1)];
 			Neuron n = l.GetNeurons () [Random.Range (0, l.GetNeurons ().Length - 1)];
-			n.Mutate (6, neuronVolume);
+			n.Mutate (n.weights.Length/3, neuronVolume);
 		}
 		MutateOutputWeights (mutated, outPutAmounts, outputVolume);
 		
@@ -91,16 +91,29 @@ public class NeuralNet {
 		return this.layers;
 	}
 
+
+
 	public void MutateOutputWeights(NeuralNet mutated, float count, float volume) {
 		for (int i = 0; i < count; i++) {
 			int weight = Random.Range (0, outputWeights.Length - 1);
 			//Debug.Log((2 * Random.value - 1) * volume);
 			mutated.outputWeights [weight] = outputWeights [weight] + ((2*Random.value - 1) * volume);
+
 		}
 
 
 	}
 	// SETTERS AND GETTERS
 
+	public void SetId(int i) {
+		id = i;
+	}
 
+	public void SetOutputWeights(float[] weights) {
+		this.outputWeights = weights;
+	}
+
+	public void SetValue(float v) {
+		value = v;
+	}
 }

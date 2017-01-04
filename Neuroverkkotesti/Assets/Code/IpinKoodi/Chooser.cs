@@ -5,7 +5,7 @@ public class Chooser : MonoBehaviour {
 
 		private int pointer;
 		private Steerable[] objects;
-		public Trainer god;
+		public GeneticTrainer god;
 		public FileManager fileManager;
 	// Use this for initialization
 		void Start () {
@@ -15,7 +15,7 @@ public class Chooser : MonoBehaviour {
 		// Update is called once per frame
 		void Update () {
 			if (Time.frameCount == 10) {
-				SetObjects ();
+				//SetObjects ();
 			} else {
 				if (Input.GetKey (KeyCode.RightArrow)) {
 					SetCurrent (0);
@@ -25,6 +25,12 @@ public class Chooser : MonoBehaviour {
 				}
 				if (Input.GetKeyDown (KeyCode.A)) {
 					AddToFilemanager ();
+				}
+				if (Input.GetKeyDown(KeyCode.UpArrow)) {
+					Time.timeScale = Time.timeScale + 1;
+				}
+				if (Input.GetKeyDown(KeyCode.DownArrow)) {
+					Time.timeScale = Time.timeScale - 1;
 				}
 			}
 		}

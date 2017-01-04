@@ -14,7 +14,10 @@ namespace Code {
 		public float controlpointOneWeight;
 		public float controlpointTwoWeight;
 		public float controlpointThreeWeight;
-		public int randomElites;
+		public float legTouchWeight;
+		public float targetWeight;
+
+		private int randomElites;
 
 
 		// Use this for initialization
@@ -24,14 +27,14 @@ namespace Code {
 	
 		// Update is called once per frame
 		void Update () {
-			if (Time.frameCount < 2) {
+			if (Time.frameCount < 3) {
 				return;
 			} else {
-				if (Time.frameCount == 2) {
+				if (Time.frameCount == 3) {
 					neuralNets = new NeuralNet[units.Length];
 					steerables = new Steerable[units.Length];
 					CollectData ();
-				} else {
+				} else if (units[units.Length-1].GetComponent<Mind>().ready) {
 					UpdateThings ();
 				}
 			}
@@ -39,13 +42,14 @@ namespace Code {
 
 		private void UpdateThings() 
 		{
-			//steerables [0].PrintValueMeasures ();
 			for (int i = 0; i < units.Length; i++) {
-				//print (steerables [i].GetPositionInfo () [1]);
-				neuralNets[i].value = neuralNets[i].value + (steerables [i].GetPositionInfo ()[0]*controlpointOneWeight + steerables[i].GetPositionInfo()[1]*controlpointTwoWeight + steerables[i].GetPositionInfo()[2]*controlpointThreeWeight);
-
+				//MAX HEIGHTS
+				neuralNets[i].value = neuralNets[i].value + (steerables [i].GetPositionInfo ()[0]*controlpointOneWeight + steerables[i].GetPositionInfo()[1]*controlpointTwoWeight + (steerables[i].GetPositionInfo()[2]-steerables [i].GetPositionInfo ()[0])*controlpointThreeWeight);
+				//MAX FOURLEGGED
+				neuralNets[i].value = neuralNets[i].value - (steerables[i].touches[0].touching + steerables[i].touches[1].touching + steerables[i].touches[2].touching + steerables[i].touches[3].touching) *legTouchWeight;
 			}
-			//print ("NeuralNet: " + neuralNets [0] + ", Value: " + neuralNets[0].value);
+			//print ("FIRST UNIT DISTANCE FROM TARGET: " + (Mathf.Sqrt (steerables [0].GetPositionInfo () [3] * steerables [0].GetPositionInfo () [3] + steerables [0].GetPositionInfo () [4] * steerables [0].GetPositionInfo () [4])));
+			//print ("last UNIT DISTANCE FROM TARGET: " + (Mathf.Sqrt (steerables [100].GetPositionInfo () [3] * steerables [100].GetPositionInfo () [3] + steerables [100].GetPositionInfo () [4] * steerables [100].GetPositionInfo () [4])));
 		}
 
 		private void CollectData() 
@@ -58,10 +62,11 @@ namespace Code {
 
 
 
-	public List<NeuralNet> GetNBest(int amount) 
+		public List<NeuralNet> GetNBest(int amount) 
 		{
 			NeuralNetHeap heap = new NeuralNetHeap (units.Length, comparator);
 			for (int i = 0; i < neuralNets.Length; i++) {
+				//neuralNets [i].SetValue (neuralNets [i].value - (Mathf.Sqrt (steerables [i].GetPositionInfo () [3] * steerables [i].GetPositionInfo () [3] + steerables [i].GetPositionInfo () [4] * steerables [i].GetPositionInfo () [4])) * targetWeight*40/Time.timeScale);
 				heap.heapInsert (neuralNets[i]);
 				//Information(i);
 			}
@@ -104,6 +109,13 @@ namespace Code {
 			print ("NeuralNet: " + neuralNets[i].id);
 			print ("Value: " + neuralNets[i].value);
 		}
+
+		public void SetRandomElites(int amount) {
+			this.randomElites = amount;
+		}
 	
+		public void SetNeuralNets(NeuralNet[] nets) {
+			neuralNets = nets;
+		}
 	}
 }

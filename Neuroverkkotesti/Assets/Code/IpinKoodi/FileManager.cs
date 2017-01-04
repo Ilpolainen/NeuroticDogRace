@@ -29,10 +29,6 @@ namespace Code {
 				print ("Saving...");
 				SaveAll ();
 			}
-			if (Input.GetKeyDown (KeyCode.L)) {
-				print ("Loading...");
-				Load ();
-			}
 		}
 
 		public void SetCurrents(List<GameObject> gos) 
@@ -53,7 +49,7 @@ namespace Code {
 			print (Application.persistentDataPath);
 		}
 
-		private void SaveAll()
+		public void SaveAll()
 		{
 			List <NeuralNet> nets = new List <NeuralNet>();
 			for (int i = 0; i < minds.Count; i++) {
@@ -65,12 +61,9 @@ namespace Code {
 			storage.Save (Path.Combine (Application.persistentDataPath, this.allFileName + ".xml"));
 		}
 
-		private void Load() {
+		public List<NeuralNet> Load() {
 			storage  = NetStorage.Load (Path.Combine(Application.persistentDataPath,this.loadFile + ".xml"));
-			for(int i = 0;i<Mathf.Max(storage.neuralNets.Count,currents.Count);i++) {
-				Mind mind = currents[i].GetComponent<Mind> ();
-				mind.SetNeuralNet(storage.GetNetWithIndex(i));
-			}
+			return storage.neuralNets;
 		}
 
 		public void AddToCurrents(GameObject go)
