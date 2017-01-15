@@ -20,7 +20,6 @@ namespace Code {
 					thing.tag = "Thing";
 					thing.transform.position = position;
 					list [i * rows + j] = thing;
-
 				}
 			}
 			return list;
@@ -33,19 +32,25 @@ namespace Code {
 				units [i].GetComponent<Steerable> ().physGo = GameObject.Instantiate (model,units[i].transform.position,Quaternion.identity) as GameObject;
 				units [i].GetComponent<Steerable> ().id = i;
 				units [i].GetComponent<Steerable>().Initialize ();
-				//units [i].GetComponent<Steerable> ().target = units [i].transform.GetChild (0).gameObject;
+				units [i].GetComponent<Steerable> ().target = units [i].transform.GetChild (0).gameObject;
 			}
 		}
 
-		public static void AssignTargets(GameObject[] units) {
-			for (int i = 0; i < units.Length; i++) {
-				GameObject ball = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-				ball.GetComponent<Collider> ().enabled = false;
+		public static void CreateTargetsOnEmptyObjects(GameObject[] emptyObs) {
+			for (int i = 0; i < emptyObs.Length; i++) {
+				GameObject ball = Creator.CreateBall (emptyObs [i].transform.position);
 				ball.AddComponent<ObjectController> ();
-				ball.GetComponent<Renderer> ().material.color = Color.green;
-				ball.transform.SetParent (units [i].transform);
-				ball.transform.localPosition = Vector3.zero;
+				ball.transform.SetParent (emptyObs [i].transform);
 			}
+		}
+
+		public static GameObject CreateBall(Vector3 position) {
+			GameObject ball = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+			ball.GetComponent<Collider> ().enabled = false;
+			ball.AddComponent<ObjectController> ();
+			ball.GetComponent<Renderer> ().material.color = Color.green;
+			ball.transform.position = position;
+			return ball;
 		}
 
 		public static void AttachMinds(GameObject[] units, bool load, List<NeuralNet> loaded, int[] hiddenLayers)
@@ -96,7 +101,7 @@ namespace Code {
 				net.value = 0;
 			}
 
-			for (int i = 0; i < minds.Count-best.Count; i++) {
+			for (int i = 0; i < minds.Count; i++) {
 				if (!marked [i]) {
 					minds [i].SetNeuralNet (best[i % best.Count].Divide(neuronMutationCount,volume,outputMutationCount,outputVolume));
 					minds [i].neuralnet.id = i;

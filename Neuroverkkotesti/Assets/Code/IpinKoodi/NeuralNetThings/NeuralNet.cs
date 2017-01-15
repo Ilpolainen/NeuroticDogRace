@@ -79,7 +79,7 @@ public class NeuralNet {
 		for (int i = 0; i < mutationCount - 1; i++) {
 			Layer l = mutated.GetLayers () [Random.Range (0, mutated.GetLayers ().Length - 1)];
 			Neuron n = l.GetNeurons () [Random.Range (0, l.GetNeurons ().Length - 1)];
-			n.Mutate (n.weights.Length/3, neuronVolume);
+			n.Mutate (Random.Range(0,n.weights.Length-1),neuronVolume);
 		}
 		MutateOutputWeights (mutated, outPutAmounts, outputVolume);
 		

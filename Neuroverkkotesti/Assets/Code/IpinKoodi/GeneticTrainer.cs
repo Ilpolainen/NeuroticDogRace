@@ -53,7 +53,7 @@ namespace Code {
 			currentNeuronWeightInterval = startingNeuronWeightInterval;
 			currentOutPutWeightInterval = startingOutputWeightInterval;
 			units = Creator.CreateEmptyObjects (populationSize);
-			//Creator.AssignTargets (units);
+			Creator.CreateTargetsOnEmptyObjects(units);
 			Creator.AttachHorses (model, units);
 			Creator.AttachMinds (units, load, loaded, hiddenLayers);
 			CollectNeuralNets ();

@@ -17,8 +17,13 @@ namespace Code {
 	// Update is called once per frame
 		void FixedUpdate () {
 			if (ready) {
+				//	if (id == 0) {
+				//		Debug.Log (neuralnet.GiveOutput (steerable.GetPositionInfo())[0]);
+				//Debug.Log (neuralnet.id);
+				//Debug.Log (neuralnet.id);
+				//		}
 				//Debug.Log ("STEERING!");
-				steerable.Steer (neuralnet.GiveOutput (steerable.GetPositionInfo()), 50);
+				steerable.Steer (neuralnet.GiveOutput (steerable.GetPositionInfo ()), 200);
 			}
 		}
 			

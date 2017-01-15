@@ -38,7 +38,7 @@ public class Steerable : MonoBehaviour {
 		touches = new Touch[4];
 
 		SetControlPoints ();
-		positionInfo = new float[controlPoints.Length * 3 + 1];
+		positionInfo = new float[controlPoints.Length * 3 + 3];
 		setMotors ();
 	}
 
@@ -99,6 +99,8 @@ public class Steerable : MonoBehaviour {
 			positionInfo [i] = controlPoints[cp].position.z - controlPoints[0].position.z;
 			i++;
 		}
+		positionInfo [positionInfo.Length - 3] = controlPoints [8].rotation.eulerAngles.x;
+		positionInfo [positionInfo.Length - 2] = controlPoints [8].rotation.eulerAngles.y;
 		positionInfo [positionInfo.Length - 1] = controlPoints [8].rotation.eulerAngles.z -90;
 	}
 
