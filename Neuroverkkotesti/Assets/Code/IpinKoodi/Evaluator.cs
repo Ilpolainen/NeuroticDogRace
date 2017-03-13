@@ -47,6 +47,8 @@ namespace Code {
 				neuralNets[i].value = neuralNets[i].value + (steerables [i].GetPositionInfo ()[0]*controlpointOneWeight + steerables[i].GetPositionInfo()[1]*controlpointTwoWeight + (steerables[i].GetPositionInfo()[2]-steerables [i].GetPositionInfo ()[0])*controlpointThreeWeight);
 				//MAX FOURLEGGED
 				neuralNets[i].value = neuralNets[i].value - (steerables[i].touches[0].touching + steerables[i].touches[1].touching + steerables[i].touches[2].touching + steerables[i].touches[3].touching) *legTouchWeight;
+				//MIN TARGET
+				neuralNets[i].value = neuralNets[i].value - targetWeight * (Mathf.Sqrt (steerables [0].GetPositionInfo () [3] * steerables [0].GetPositionInfo () [3] + steerables [0].GetPositionInfo () [4] * steerables [0].GetPositionInfo () [4]));
 			}
 			//print ("FIRST UNIT DISTANCE FROM TARGET: " + (Mathf.Sqrt (steerables [0].GetPositionInfo () [3] * steerables [0].GetPositionInfo () [3] + steerables [0].GetPositionInfo () [4] * steerables [0].GetPositionInfo () [4])));
 			//print ("last UNIT DISTANCE FROM TARGET: " + (Mathf.Sqrt (steerables [100].GetPositionInfo () [3] * steerables [100].GetPositionInfo () [3] + steerables [100].GetPositionInfo () [4] * steerables [100].GetPositionInfo () [4])));

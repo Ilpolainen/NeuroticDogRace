@@ -27,7 +27,7 @@ public class Neuron  {
 
 	public Neuron(int inputSize) {
 		weights = new float[inputSize + 1];
-		NeuralUtilities.RandomWeights (1, weights);
+		NeuralUtilities.RandomWeights (2, weights);
 		//Debug.Log ("FROM NEURON CONSTRUCTOR FIRST WEIGHT" + weights [0]);
 		//Debug.Log ("FROM NEURON CONSTRUCTOR LAST WEIGHT" + weights [weights.Length-1]);
 	}

@@ -61,18 +61,54 @@ public class Steerable : MonoBehaviour {
 	}
 
 
-	public void Steer(float[] floats, float force) 
+	public void SteerWithMotor(float[] raw, int divider, float speedthrust) 
 	{
 		for (int i = 0; i < joints.Length; i++) {
-			float command = floats [i];
-			JointSpring spring = joints [i].spring;
-			spring.targetPosition = command*force;
-			spring.damper = 100;
-			spring.spring = 400;
-			joints [i].spring = spring;
+			JointLimits limits = joints [i].limits;
+			float targetPos = (limits.max-limits.min) * raw [i]/divider + (limits.max+limits.min)/2;
+			JointMotor motor = joints [i].motor;
+			motor.targetVelocity = (targetPos - joints [i].angle) * speedthrust;
+			motor.force = 40;
+			joints [i].motor = motor;
+			if (id == 1 && i == 11 && Time.frameCount % 40 == 0) {
+				print ("FROM STEERABLE STEERWITHMOTOR: JOINT " + joints [i].connectedBody +  ", Targetposition is: " + targetPos);
+				print ("Position is: " + joints [i].angle);
+				print ("Target Velocity: " + (targetPos - joints [i].angle) * speedthrust);
+				print ("Max: " + limits.max + ", Min: " + limits.min);
+			}
 		}
 	}
 
+	public void SteerWithSpring(float[] raw, int divider) 
+	{
+		for (int i = 0; i < joints.Length; i++) {
+			JointLimits limits = joints [i].limits;
+			float targetPos = (limits.max-limits.min) * raw [i]/divider + (limits.max+limits.min)/2;
+			JointSpring spring = joints [i].spring;
+			spring.targetPosition = targetPos;
+			spring.damper = 100;
+			spring.spring = 400;
+			joints [i].spring = spring;
+			if (id == 1 && i == 6 && Time.frameCount % 40 == 0) {
+				print ("FROM STEERABLE STEER: JOINT " + joints [i].gameObject +  ", Targetposition is: " + joints[i].spring.targetPosition);
+				print ("Max: " + limits.max + ", Min: " + limits.min);
+				print ("Position is: " + joints [i].angle);
+			}
+		}
+	}
+
+	void DebugRaw(float[] raw) {
+		for (int i = 0; i < raw.Length; i++) {
+			print ("FROM STEERABLE STEER: " + raw [i]);
+		}
+	}
+
+	void DebugCommands(JointLimits limits, float command) {
+		if (Time.frameCount % 30 == 0) {
+			print ("FROM STEERABLE STEER");
+			print ("LIMITS: min " + limits.min + ", max " + limits.max + " - COMMAND: " + command);
+		}
+	}
 
 	void UpDatePositionInfo() 
 	{	
@@ -123,7 +159,10 @@ public class Steerable : MonoBehaviour {
 	void setMotors() 
 	{
 		foreach (HingeJoint joint in joints) {
-			joint.useSpring = true;
+			joint.useMotor = true;
+			joint.useSpring = false;
+			joint.useLimits = true;
+
 			//print (joint.gameObject);
 		}
 		//print ("joints" + joints.Length);

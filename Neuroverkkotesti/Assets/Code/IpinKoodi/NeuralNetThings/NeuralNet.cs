@@ -37,6 +37,11 @@ public class NeuralNet {
 		NeuralUtilities.RandomWeights (3, outputWeights);
 	}
 
+	void DebugLastNeuron() {
+		Layer last = layers [layers.Length - 1];
+		Neuron neuron = last.neurons [last.neurons.Length - 1];
+	}
+
 	public NeuralNet(NeuralNet neuralnet) {
 		value = 0;
 		layers = new Layer[neuralnet.GetLayers().Length];
@@ -54,13 +59,21 @@ public class NeuralNet {
 	public float[] GiveOutput(float[] input) 
 	{
 		if (input.Length != layers [0].inputLength) {
-			Debug.LogError ("First layer's input size doesn't match fiven input");
+			Debug.LogError ("First layer's input size doesn't match given input");
 			return null;
 		} else {
 			output = GiveRecursiveOutput (input, layers.Length - 1);
-			for (int i = 0; i < output.Length; i++) {
-				output [i] = output [i] * outputWeights [i];
-			}
+			//Let's try without outputweights
+			//output [i] = output [i] * outputWeights [i];
+
+			//DEBUGGING
+//			if (Time.frameCount % 100 == 0){
+//				for (int i = 0; i < output.Length; i++) {
+//					Debug.Log ("FROM NEURALNET GIVEOUTPUT: " + output [i]);
+//	
+//				}
+//			}
+
 			return output;
 		}
 	}
