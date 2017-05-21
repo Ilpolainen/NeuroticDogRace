@@ -2,24 +2,9 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Code\IpinKoodi\Steerable.cs">
     <Files>
-      <File FileName="Assets\Code\IpinKoodi\Steerable.cs" Line="68" Column="19" />
-      <File FileName="Assets\Code\IpinKoodi\FileManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Code\IpinKoodi\Creator.cs" Line="1" Column="1" />
-      <File FileName="Assets\Code\IpinKoodi\Evaluator.cs" Line="1" Column="1" />
-      <File FileName="Assets\Code\IpinKoodi\NeuralNetThings\NeuralNet.cs" Line="1" Column="1" />
-      <File FileName="Assets\Code\IpinKoodi\NeuralNetThings\Neuron.cs" Line="1" Column="1" />
-      <File FileName="Assets\Code\IpinKoodi\NeuralNetThings\NeuralFunction.cs" Line="1" Column="1" />
+      <File FileName="Assets\Code\IpinKoodi\Steerable.cs" Line="71" Column="28" />
+      <File FileName="Assets\Code\HingeTest.cs" Line="8" Column="27" />
       <File FileName="Assets\Code\IpinKoodi\Mind.cs" Line="22" Column="49" />
-      <File FileName="Assets\Code\IpinKoodi\NeuralNetThings\NetStorage.cs" Line="1" Column="1" />
-      <File FileName="Assets\Code\IpinKoodi\Chooser.cs" Line="1" Column="1" />
-      <File FileName="Assets\Code\IpinKoodi\NeuralNetThings\NeuralUtilities.cs" Line="1" Column="1" />
-      <File FileName="Assets\Code\IpinKoodi\ComponentUtilities.cs" Line="1" Column="1" />
-      <File FileName="Assets\Code\IpinKoodi\Touch.cs" Line="1" Column="1" />
-      <File FileName="Assets\Code\IpinKoodi\GeneticTrainer.cs" Line="1" Column="1" />
-      <File FileName="Assets\Code\IpinKoodi\SimAnnealingTrainer.cs" Line="1" Column="1" />
-      <File FileName="Assets\Code\IpinKoodi\DataStructures\NNetValueComparator.cs" Line="1" Column="1" />
-      <File FileName="Assets\Code\IpinKoodi\ObjectController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Code\IpinKoodi\NeuralNetThings\Layer.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

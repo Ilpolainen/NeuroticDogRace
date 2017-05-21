@@ -45,6 +45,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Code\HingeTest.cs" />
      <Compile Include="Assets\Code\INeuralNet.cs" />
      <Compile Include="Assets\Code\IVisualizable.cs" />
      <Compile Include="Assets\Code\IpinKoodi\Chooser.cs" />
@@ -137,10 +138,10 @@
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="Mono.Cecil">
- <HintPath>E:/Ohjelmointi/UnityProjects/Neuroverkkotesti/Assets/UnityTestTools/IntegrationTestsFramework/Libs/Mono.Cecil.dll</HintPath>
+ <HintPath>E:/Ohjelmointi/GitHub/NeuralHorses/Neuroverkkotesti/Assets/UnityTestTools/IntegrationTestsFramework/Libs/Mono.Cecil.dll</HintPath>
  </Reference>
  <Reference Include="Mono.Cecil.Mdb">
- <HintPath>E:/Ohjelmointi/UnityProjects/Neuroverkkotesti/Assets/UnityTestTools/IntegrationTestsFramework/Libs/Mono.Cecil.Mdb.dll</HintPath>
+ <HintPath>E:/Ohjelmointi/GitHub/NeuralHorses/Neuroverkkotesti/Assets/UnityTestTools/IntegrationTestsFramework/Libs/Mono.Cecil.Mdb.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
