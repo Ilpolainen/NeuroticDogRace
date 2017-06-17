@@ -72,12 +72,12 @@ public class Steerable : MonoBehaviour {
 
 			motor.force = 40;
 			joints [i].motor = motor;
-			if (id == 1 && i == 7) {
-				print ("FROM STEERABLE STEERWITHMOTOR: JOINT " + joints [i].gameObject +  ", Targetposition is: " + targetPos);
-				print ("Current angle is: " + joints [i].angle);
-				print ("Target Velocity: " + (targetPos - joints [i].angle) * speedthrust);
-				print ("Max: " + limits.max + ", Min: " + limits.min);
-			}
+			//if (id == 1 && i == 7) {
+			//	print ("FROM STEERABLE STEERWITHMOTOR: JOINT " + joints [i].gameObject +  ", Targetposition is: " + targetPos);
+			//	print ("Current angle is: " + joints [i].angle);
+			//	print ("Target Velocity: " + (targetPos - joints [i].angle) * speedthrust);
+			//	print ("Max: " + limits.max + ", Min: " + limits.min);
+			//}
 		}
 	}
 
