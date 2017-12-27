@@ -4,7 +4,7 @@
     <Files>
       <File FileName="Assets\Code\IpinKoodi\NewCode\MuscledBody.cs" Line="1" Column="1" />
       <File FileName="Assets\Code\IpinKoodi\NewCode\Doggy.cs" Line="1" Column="1" />
-      <File FileName="Assets\Code\IpinKoodi\NeuralNetThings\NeuralNet.cs" Line="25" Column="16" />
+      <File FileName="Assets\Code\IpinKoodi\NeuralNetThings\NeuralNet.cs" Line="1" Column="1" />
       <File FileName="Assets\Code\IpinKoodi\NeuralNetThings\NeuralFunction.cs" Line="1" Column="1" />
       <File FileName="Assets\Code\IpinKoodi\NewCode\Mind2.cs" Line="1" Column="1" />
       <File FileName="Assets\Code\IpinKoodi\NewCode\SimpleGame.cs" Line="1" Column="1" />
@@ -15,8 +15,8 @@
       <File FileName="Assets\Code\IpinKoodi\NewCode\CentralUnit.cs" Line="1" Column="1" />
       <File FileName="Assets\Code\IpinKoodi\NewCode\Trainer.cs" Line="1" Column="1" />
       <File FileName="Assets\Code\IpinKoodi\NeuralNetThings\NeuralUtilities.cs" Line="1" Column="1" />
-      <File FileName="Assets\Code\IpinKoodi\NeuralNetThings\Neuron.cs" Line="50" Column="4" />
-      <File FileName="Assets\Code\IpinKoodi\NeuralNetThings\Layer.cs" Line="39" Column="42" />
+      <File FileName="Assets\Code\IpinKoodi\NeuralNetThings\Neuron.cs" Line="1" Column="1" />
+      <File FileName="Assets\Code\IpinKoodi\NeuralNetThings\Layer.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
