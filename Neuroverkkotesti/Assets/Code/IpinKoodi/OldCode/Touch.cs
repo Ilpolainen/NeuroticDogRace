@@ -14,7 +14,7 @@ public class Touch : MonoBehaviour {
 		
 	}
 
-	void OnCollision(Collision col) {
+	void OnCollisionEnter(Collision col) {
 		touching = 10;
 	}
 

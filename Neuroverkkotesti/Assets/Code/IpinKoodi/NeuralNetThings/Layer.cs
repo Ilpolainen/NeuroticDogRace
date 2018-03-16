@@ -15,26 +15,32 @@ public class Layer {
 	[XmlAttribute("inputLength")]
 	public int inputLength;
 
+    [XmlAttribute("type")]
+    public int type;
+
 	public Layer()
 	{
 	}
 		
 	public Layer(Layer layer) {
-		neurons = new Neuron[layer.GetNeurons ().Length];
+        this.type = layer.type;
+        neurons = new Neuron[layer.GetNeurons ().Length];
 		for (int i = 0; i < neurons.Length; i++) {
-			neurons [i] = new Neuron (layer.GetNeurons () [i]);
+			neurons [i] = new Neuron (layer.GetNeurons () [i],type);
 		}
+       
 		this.inputLength = layer.inputLength;
 		this.output = new float[layer.output.Length];
 	}
 
-	public Layer(int neuronCount, int inputSize) 
+	public Layer(int neuronCount, int inputSize, int type) 
 	{
+        this.type = type;
 		this.inputLength = inputSize;
 		this.neurons = new Neuron[neuronCount];
 		this.output = new float[neuronCount];
 		for (int i = 0; i < neuronCount; i++) {
-			neurons [i] = new Neuron (inputSize);
+			neurons [i] = new Neuron (inputSize,type);
 		}
 	}
 

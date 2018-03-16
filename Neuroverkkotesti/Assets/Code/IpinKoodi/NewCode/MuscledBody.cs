@@ -16,6 +16,7 @@ public abstract class MuscledBody : MonoBehaviour {
 	private Vector3[] initialPositions;
 	private Quaternion[] initialRotations;
 
+    public float power;
 	public Touch[] touches;
 	private float[] sensorInfo;
 
@@ -43,12 +44,24 @@ public abstract class MuscledBody : MonoBehaviour {
 		if (ready) {
 			UpdateSensors ();
 		}
+        if (Time.frameCount % 100 == 0)
+        {
+            //DebugSensorInfo();
+        }
 	}
 
 	void UpdateSensors()
 	{
-			
-	}
+        for (int i = 0; i < touches.Length; i++)
+        {
+            sensorInfo[i] = touches[i].touching;
+        }
+        for (int i = 0; i < joints.Length;i++)
+        {
+            sensorInfo[i + touches.Length] = joints[i].angle/(joints[i].limits.max-joints[i].limits.min);
+        }
+        
+    }
 
 
 
@@ -61,7 +74,7 @@ public abstract class MuscledBody : MonoBehaviour {
 			float targetPos = (limits.max-limits.min) * rawCommands [i]/divider + (limits.max+limits.min)/2;
 			JointMotor motor = joints [i].motor;
 			motor.targetVelocity = (targetPos - joints [i].angle) * speedthrust;
-			motor.force = 40;
+			motor.force = power;
 			joints [i].motor = motor;
 		}
 	}
@@ -217,7 +230,14 @@ public abstract class MuscledBody : MonoBehaviour {
 		}
 	}
 
-
+    public void DebugSensorInfo()
+    {
+        Debug.Log("FROM MUSCLED BODY DEBUG SENSOR INFO");
+        foreach (float c in sensorInfo)
+        {
+            print(c);
+        }
+    }
 	// Use this for initialization
 
 }

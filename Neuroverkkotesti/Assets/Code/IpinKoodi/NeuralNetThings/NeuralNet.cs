@@ -30,9 +30,10 @@ public class NeuralNet {
 	public NeuralNet(int[] structure) {
 		value = 0;
 		layers = new Layer[structure.Length - 1];
-		for (int i = 1; i < structure.Length; i++) {
-			layers [i - 1] = new Layer(structure [i], structure [i - 1]);
+		for (int i = 1; i < structure.Length-1; i++) {
+			layers [i - 1] = new Layer(structure [i], structure [i - 1],0);
 		}
+        layers[structure.Length - 2] = new Layer(structure[structure.Length - 1], structure[structure.Length - 2], 1);
 		outputWeights = new float[structure[structure.Length - 1]];
 		NeuralUtilities.RandomWeights (3, outputWeights);
 	}

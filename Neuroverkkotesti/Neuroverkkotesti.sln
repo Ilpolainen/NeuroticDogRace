@@ -1,9 +1,9 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{6914B21D-4575-3914-564F-9E9262A47601}") = "Neuroverkkotesti", "Assembly-CSharp.csproj", "{5F1B1897-1CF4-5574-1944-521D3AEEB218}"
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neuroverkkotesti", "Assembly-CSharp.csproj", "{5F1B1897-1CF4-5574-1944-521D3AEEB218}"
 EndProject
-Project("{6914B21D-4575-3914-564F-9E9262A47601}") = "Neuroverkkotesti", "Assembly-CSharp-Editor.csproj", "{F294EBB1-E6E5-FD49-BEB3-8580F92768AB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neuroverkkotesti", "Assembly-CSharp-Editor.csproj", "{F294EBB1-E6E5-FD49-BEB3-8580F92768AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
