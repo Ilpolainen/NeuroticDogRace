@@ -44,16 +44,17 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>C:/Program Files/Unity_2017.2/Unity/Editor/Data/Managed\UnityEngine.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/Managed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>C:/Program Files/Unity_2017.2/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Code\IpinKoodi\DataStructures\NeuralNetComparator.cs" />
      <Compile Include="Assets\Code\IpinKoodi\DataStructures\NeuralNetHeap.cs" />
      <Compile Include="Assets\Code\IpinKoodi\DataStructures\NNetValueComparator.cs" />
+     <Compile Include="Assets\Code\IpinKoodi\NeuralNetThings\BuildInstructions.cs" />
      <Compile Include="Assets\Code\IpinKoodi\NeuralNetThings\Layer.cs" />
      <Compile Include="Assets\Code\IpinKoodi\NeuralNetThings\NetStorage.cs" />
      <Compile Include="Assets\Code\IpinKoodi\NeuralNetThings\NeuralFunction.cs" />
@@ -61,42 +62,50 @@
      <Compile Include="Assets\Code\IpinKoodi\NeuralNetThings\NeuralUtilities.cs" />
      <Compile Include="Assets\Code\IpinKoodi\NeuralNetThings\Neuron.cs" />
      <Compile Include="Assets\Code\IpinKoodi\NewCode\Academy.cs" />
-     <Compile Include="Assets\Code\IpinKoodi\NewCode\ChoosingParents.cs" />
+     <Compile Include="Assets\Code\IpinKoodi\NewCode\Actions\Action.cs" />
+     <Compile Include="Assets\Code\IpinKoodi\NewCode\Actions\ChoosingParents.cs" />
+     <Compile Include="Assets\Code\IpinKoodi\NewCode\Actions\MarkDesposable.cs" />
+     <Compile Include="Assets\Code\IpinKoodi\NewCode\Actions\SetAsChild.cs" />
+     <Compile Include="Assets\Code\IpinKoodi\NewCode\Creator.cs" />
      <Compile Include="Assets\Code\IpinKoodi\NewCode\Doggy.cs" />
      <Compile Include="Assets\Code\IpinKoodi\NewCode\FakeGame.cs" />
      <Compile Include="Assets\Code\IpinKoodi\NewCode\FileManager.cs" />
-     <Compile Include="Assets\Code\IpinKoodi\NewCode\GameState.cs" />
+     <Compile Include="Assets\Code\IpinKoodi\NewCode\Game.cs" />
+     <Compile Include="Assets\Code\IpinKoodi\NewCode\IndividualInfo.cs" />
+     <Compile Include="Assets\Code\IpinKoodi\NewCode\Info.cs" />
      <Compile Include="Assets\Code\IpinKoodi\NewCode\Mind2.cs" />
      <Compile Include="Assets\Code\IpinKoodi\NewCode\MuscledBody.cs" />
      <Compile Include="Assets\Code\IpinKoodi\NewCode\Selector.cs" />
+     <Compile Include="Assets\Code\IpinKoodi\NewCode\SliderActions.cs" />
+     <Compile Include="Assets\Code\IpinKoodi\NewCode\StartGame.cs" />
      <Compile Include="Assets\Code\IpinKoodi\NewCode\Touch.cs" />
      <Compile Include="Assets\Code\IpinKoodi\NewCode\Trainer.cs" />
  <Reference Include="UnityEngine.UI">
- <HintPath>C:/Program Files/Unity_2017.2/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
- <HintPath>C:/Program Files/Unity_2017.2/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.TestRunner">
- <HintPath>C:/Program Files/Unity_2017.2/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
  </Reference>
  <Reference Include="nunit.framework">
- <HintPath>C:/Program Files/Unity_2017.2/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Timeline">
- <HintPath>C:/Program Files/Unity_2017.2/Unity/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UIAutomation">
- <HintPath>C:/Program Files/Unity_2017.2/Unity/Editor/Data/UnityExtensions/Unity/UIAutomation/UnityEngine.UIAutomation.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UIAutomation/UnityEngine.UIAutomation.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.GoogleAudioSpatializer">
- <HintPath>C:/Program Files/Unity_2017.2/Unity/Editor/Data/UnityExtensions/Unity/UnityGoogleAudioSpatializer/RuntimeEditor/UnityEngine.GoogleAudioSpatializer.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityGoogleAudioSpatializer/RuntimeEditor/UnityEngine.GoogleAudioSpatializer.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.HoloLens">
- <HintPath>C:/Program Files/Unity_2017.2/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.SpatialTracking">
- <HintPath>C:/Program Files/Unity_2017.2/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Analytics">
  <HintPath>C:/Users/Ilmari Pohjola/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.analytics@1.0.1/UnityEngine.Analytics.dll</HintPath>

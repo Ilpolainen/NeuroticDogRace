@@ -18,7 +18,14 @@ namespace Code {
 		void FixedUpdate () {
 			if (ready) {
 				float[] output = neuralnet.GiveOutput (mb.GetSensorInfo ());
-				int divider = hiddenStructure [hiddenStructure.Length - 1];
+                int divider = 1;
+                if (hiddenStructure.Length > 0)
+                {
+                    divider = hiddenStructure[hiddenStructure.Length - 1];
+                }	else
+                {
+                    divider = mb.GetSensorInfo().Length;
+                }
 				mb.Move (output, divider, 100);
 			} else {
 				if (mb.ready) {
@@ -64,6 +71,21 @@ namespace Code {
 			NeuralNet first = new NeuralNet (structure);
 			return first;
 		}
-	}
+
+        public void updateNeuralNet(float randomness)
+        {
+            int inputSize = mb.GetSensorInfo().Length;
+            int outputSize = mb.GetJoints().Length;
+            int[] structure = new int[hiddenStructure.Length + 2];
+            structure[0] = inputSize;
+            structure[structure.Length - 1] = outputSize;
+            for (int i = 0; i < hiddenStructure.Length; i++)
+                {
+                    structure[i + 1] = hiddenStructure[i];
+                }
+            NeuralNet first = new NeuralNet(structure,randomness);
+            this.neuralnet = first;
+        }
+    }
 
 }

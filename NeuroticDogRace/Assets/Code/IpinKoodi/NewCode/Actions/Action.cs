@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameState : MonoBehaviour  {
+public class Action : MonoBehaviour  {
 
     public GameObject touched;
 
@@ -14,5 +14,10 @@ public class GameState : MonoBehaviour  {
     public void SetTouched(GameObject go)
     {
         touched = go;
+    }
+
+    public virtual void Execute()
+    {
+
     }
 }

@@ -38,7 +38,24 @@ public class NeuralNet {
 		NeuralUtilities.RandomWeights (3, outputWeights);
 	}
 
-	void DebugLastNeuron() {
+    public NeuralNet(int[] structure, float randomness)
+    {
+        value = 0;
+        if (structure.Length > 0)
+        {
+
+        }
+        layers = new Layer[structure.Length - 1];
+        for (int i = 1; i < structure.Length - 1; i++)
+        {
+            layers[i - 1] = new Layer(structure[i], structure[i - 1], 0);
+        }
+        layers[structure.Length - 2] = new Layer(structure[structure.Length - 1], structure[structure.Length - 2], 1);
+        outputWeights = new float[structure[structure.Length - 1]];
+        NeuralUtilities.RandomWeights(randomness, outputWeights);
+    }
+
+    void DebugLastNeuron() {
 		Layer last = layers [layers.Length - 1];
 		Neuron neuron = last.neurons [last.neurons.Length - 1];
 	}

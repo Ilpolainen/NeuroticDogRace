@@ -2,35 +2,45 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Selector : MonoBehaviour {
+namespace NewCode
+{
 
-    GameState state;
-    Renderer[] renderers;
-
-    void Start()
+    public class Selector : MonoBehaviour
     {
-        state = null;
-        renderers = gameObject.transform.GetComponentsInParent<Transform>()[1].GetComponentsInChildren<Renderer>();
-    }
 
-    void OnMouseDown(){
-        //state.SetTouched(gameObject);
-        SetTouchColor(Color.blue);
-    }
+        Transform parent;
+        Renderer[] renderers;
 
-    void OnMouseUp()
-    {
-        SetTouchColor(Color.red);
-    }
-
-    void SetTouchColor(Color color)
-    {
-        foreach (Renderer rend in renderers)
+        void Start()
         {
-            Material[] mats = rend.materials;
-            foreach (Material mat in mats)
+            
+            parent = gameObject.transform.GetComponentsInParent<Transform>()[1];
+            renderers = parent.GetComponentsInChildren<Renderer>();
+        }
+
+        void OnMouseDown()
+        {
+            SetTouchColor(Color.cyan);
+        }
+
+        void OnMouseUp()
+        {
+            SetTouchColor(Color.red);
+            Action action = Info.Instance.game.GetAction();
+            action.SetTouched(parent.gameObject);
+            action.Execute();
+            
+        }
+
+        public void SetTouchColor(Color color)
+        {
+            foreach (Renderer rend in renderers)
             {
-                mat.color = color;
+                Material[] mats = rend.materials;
+                foreach (Material mat in mats)
+                {
+                    mat.color = color;
+                }
             }
         }
     }

@@ -160,7 +160,6 @@ public abstract class MuscledBody : MonoBehaviour {
 	public virtual void SetSensorInfo () 
 	{
 		sensorInfo = new float[touches.Length + joints.Length + xyz ()];
-		Debug.Log (sensorInfo.Length);
 	}
 
 
