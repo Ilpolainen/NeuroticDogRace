@@ -18,10 +18,13 @@ public class ChoosingParents : Action {
         {
             return;
         }
-        this.touched.GetComponentInChildren<IndividualInfo>().isParent = true;
-        IndividualInfo childInfo = this.currentChild.GetComponent<IndividualInfo>();
-        childInfo.parent = this.touched.transform;
+        
+        touched.GetComponentInChildren<IndividualInfo>().ClearStatus();
+        touched.GetComponentInChildren<IndividualInfo>().status = 3;
+        IndividualInfo childInfo = currentChild.GetComponent<IndividualInfo>();
+        childInfo.parents.Add(touched.transform);
         touched.GetComponentInChildren<Selector>().SetTouchColor(Color.blue);
+        Info.Instance.UpdateStatuses();
     }
 }
 

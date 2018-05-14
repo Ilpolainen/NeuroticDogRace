@@ -1,21 +1,44 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SliderActions : MonoBehaviour {
 
+    public Text[] Neurons;
+    string[] neuroncountstartingtexts;
+    public Text unittext;
+    public Text randomtext;
+    public Text hiddenLayerCounttext;
     GameObject[] layerSliders;
     public int[] hiddenLayerStructure;
     int maxCount = 5;
 
     void Start()
-    {
-        hiddenLayerStructure = new int[5];
+    {   
         layerSliders = GetLayerSliders();
+        SetTexts();
+        hiddenLayerStructure = new int[5];
         HideLayerSlides(0);
+    }
+
+    void SetTexts()
+    {
+        Neurons = new Text[layerSliders.Length];
+        hiddenLayerCounttext = GameObject.Find("Hidden Layer Count").GetComponent<Text>();
+        randomtext = GameObject.Find("Random Value").GetComponent<Text>();
+        unittext = GameObject.Find("Units COUNTER").GetComponent<Text>();
+        neuroncountstartingtexts = new string[layerSliders.Length];
+        for (int i = 0; i<neuroncountstartingtexts.Length; i++)
+        {
+            neuroncountstartingtexts[i] = layerSliders[i].GetComponentInChildren<Text>().text.ToString();
+            Neurons[i] = layerSliders[i].GetComponentInChildren<Text>();
+            Neurons[i].text = neuroncountstartingtexts[i] + " 1";
+        }
     }
     // Update is called once per frame
     public void ChangeLayerCount (float layers) {
+        hiddenLayerCounttext.text = "" + layers;
         for (int i = 0; i < layers; i++)
         {
             if (!layerSliders[i].activeSelf)
@@ -39,29 +62,34 @@ public class SliderActions : MonoBehaviour {
     public void ChangeFirstLayerNeuronCount(float neurons)
     {
         hiddenLayerStructure[0] = (int)neurons;
+        Neurons[0].text = neuroncountstartingtexts[0] + " " + neurons;
         DebugStructure();
     }
 
     public void ChangeSecondLayerNeuronCount(float neurons)
     {
         hiddenLayerStructure[1] = (int)neurons;
+        Neurons[1].text = neuroncountstartingtexts[1] + " " + neurons;
         DebugStructure();
     }
 
     public void ChangeThirdLayerNeuronCount(float neurons)
     {
         hiddenLayerStructure[2] = (int)neurons;
+        Neurons[2].text = neuroncountstartingtexts[2] + " " + neurons;
         DebugStructure();
     }
 
     public void ChangeFourthLayerNeuronCount(float neurons)
     {
         hiddenLayerStructure[3] = (int)neurons;
+        Neurons[3].text = neuroncountstartingtexts[3] + " " + neurons;
         DebugStructure();
     }
 
     public void ChangeFifthLayerNeuronCount(float neurons)
     {
+        Neurons[4].text = neuroncountstartingtexts[4] + " " + neurons;
         hiddenLayerStructure[4] = (int)neurons;
         DebugStructure();
     }
@@ -107,13 +135,14 @@ public class SliderActions : MonoBehaviour {
     public void SetAcademySize(float units)
     {
         int unitcount = (int)units;
-        Debug.Log(unitcount);
-        Info.Instance.units = unitcount;
+        this.unittext.text = "" + unitcount;
+        Info.Instance.unitCount = unitcount;
     }
 
     public void SetStartRandomness(float factor)
     {
         Info.Instance.randomness = factor;
+        randomtext.text = "" + factor;
     }
 
     void DebugStructure()

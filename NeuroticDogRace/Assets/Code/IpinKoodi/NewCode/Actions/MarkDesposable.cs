@@ -14,8 +14,9 @@ public class MarkDesposable : Action {
     public override void Execute()
     {
         IndividualInfo individualInfo = this.touched.GetComponentInChildren<IndividualInfo>();
-        individualInfo.isParent = false;
-        individualInfo.isDisposable = true;
+        individualInfo.ClearStatus();
+        individualInfo.status = 1;
         touched.GetComponentInChildren<Selector>().SetTouchColor(Color.gray);
+        Info.Instance.UpdateStatuses();
     }
 }

@@ -33,14 +33,14 @@ public class Layer {
 		this.output = new float[layer.output.Length];
 	}
 
-	public Layer(int neuronCount, int inputSize, int type) 
+	public Layer(int neuronCount, int inputSize, int type, float randomness) 
 	{
         this.type = type;
 		this.inputLength = inputSize;
 		this.neurons = new Neuron[neuronCount];
 		this.output = new float[neuronCount];
 		for (int i = 0; i < neuronCount; i++) {
-			neurons [i] = new Neuron (inputSize,type);
+			neurons [i] = new Neuron (inputSize,type,randomness);
 		}
 	}
 
@@ -50,6 +50,7 @@ public class Layer {
 		}
 		return output;
 	}
+
 
 	public Neuron[] GetNeurons()
 	{

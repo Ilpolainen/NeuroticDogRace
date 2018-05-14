@@ -13,11 +13,11 @@ public class SetAsChild : Action {
     public override void Execute()
     {
         IndividualInfo individualInfo = this.touched.GetComponentInChildren<IndividualInfo>();
-        individualInfo.isParent = false;
-        individualInfo.isDisposable = false;
-        individualInfo.isChild = true;
-        Info.Instance.game.GetComponentInChildren<ChoosingParents>().currentChild = this.touched.transform;
+        individualInfo.ClearStatus();
+        individualInfo.status = 2;
+        Info.Instance.game.GetComponentInChildren<ChoosingParents>().currentChild = touched.transform;
         touched.GetComponentInChildren<Selector>().SetTouchColor(Color.magenta);
         Info.Instance.game.currentAction = Info.Instance.game.GetComponentInChildren<ChoosingParents>();
+        Info.Instance.UpdateStatuses();
     }
 }

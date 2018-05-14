@@ -9,7 +9,7 @@ public class FakeGame : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         currentDog = GameObject.Instantiate(dog);
-        currentDog.active= true;
+        currentDog.SetActive(true);
 	}
 	
 	// Update is called once per frame

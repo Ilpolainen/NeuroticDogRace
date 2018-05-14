@@ -18,6 +18,7 @@ public abstract class MuscledBody : MonoBehaviour {
 
     public float power;
 	public Touch[] touches;
+    public VisualSensor[] eyeSensors;
 	private float[] sensorInfo;
 
 	public bool ready;
@@ -34,10 +35,25 @@ public abstract class MuscledBody : MonoBehaviour {
 		joints = physGo.GetComponentsInChildren<HingeJoint> ();
 		SetSensors ();
 		SetMotors ();
-		ready = true;
+        StoreInitialPositions();
+        ready = true;
 	}
-
-
+    
+    public void ReRunStart()
+    {
+        if (target == null)
+        {
+            target = this.gameObject;
+        }
+        physGo = gameObject;
+        rb = physGo.GetComponentInChildren<Rigidbody>();
+        renderers = physGo.GetComponentsInChildren<Renderer>();
+        joints = physGo.GetComponentsInChildren<HingeJoint>();
+        SetSensors();
+        SetMotors();
+        StoreInitialPositions();
+        ready = true;
+    }
 
 	void FixedUpdate()
 	{
@@ -56,11 +72,16 @@ public abstract class MuscledBody : MonoBehaviour {
         {
             sensorInfo[i] = touches[i].touching;
         }
+        for (int i = 0; i < eyeSensors.Length; i++)
+        {
+            sensorInfo[i+touches.Length] = eyeSensors[i].distance;
+        }
         for (int i = 0; i < joints.Length;i++)
         {
-            sensorInfo[i + touches.Length] = joints[i].angle/(joints[i].limits.max-joints[i].limits.min);
+            sensorInfo[i + touches.Length + eyeSensors.Length] = joints[i].angle/(joints[i].limits.max-joints[i].limits.min);
         }
-        
+        sensorInfo[touches.Length + eyeSensors.Length + joints.Length] = (target.transform.position - transform.GetChild(0).position).x;
+        sensorInfo[touches.Length + eyeSensors.Length + joints.Length] = (target.transform.position - transform.GetChild(0).position).z;
     }
 
 
@@ -139,6 +160,7 @@ public abstract class MuscledBody : MonoBehaviour {
 	void SetSensors ()
 	{
 		SetTouches ();
+        SetEyes();
 		SetControlPoints ();
 		SetSensorInfo ();
 	}
@@ -146,6 +168,23 @@ public abstract class MuscledBody : MonoBehaviour {
 	public virtual void SetControlPoints()
 	{
 	}
+
+    public void SetEyes()
+    {
+        if (Info.Instance == null)
+        {
+            return;
+        }
+        eyeSensors = physGo.transform.GetComponentsInChildren<VisualSensor>();
+        for (int i = 0; i < eyeSensors.Length; i++)
+        {
+            if (Info.Instance.eyeRotations != null && Info.Instance.eyeRotations.Length == eyeSensors.Length) {
+                eyeSensors[i].transform.localRotation = Info.Instance.eyeRotations[i];
+            }
+           
+        }
+        
+    }
 
 	public void SetTouches()
 	{
@@ -159,8 +198,13 @@ public abstract class MuscledBody : MonoBehaviour {
 
 	public virtual void SetSensorInfo () 
 	{
-		sensorInfo = new float[touches.Length + joints.Length + xyz ()];
+		sensorInfo = new float[touches.Length + eyeSensors.Length + joints.Length + 2];
 	}
+
+    public void MoveEyes()
+    {
+
+    }
 
 
 	//__________________________________________

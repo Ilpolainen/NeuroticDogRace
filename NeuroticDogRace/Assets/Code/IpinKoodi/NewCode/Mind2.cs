@@ -5,19 +5,25 @@ namespace Code {
 	public class Mind2 : MonoBehaviour {
 
 		public NeuralNet neuralnet;
+        public NeuralNet[] stages;
 		private MuscledBody mb;
 		public int[] hiddenStructure;
 		public bool ready;
 		public int id;
-		// Use this for initialization
-		void Start () {
+        float[] output;
+        // Use this for initialization
+        void Start () {
 			mb = this.gameObject.GetComponent<MuscledBody> ();
-		}
+            stages = new NeuralNet[Info.Instance.netsPerUnit];
+            stages[0] = defaultNN();
+            stages[1] = defaultNN();
+        }
 
 		// Update is called once per frame
 		void FixedUpdate () {
-			if (ready) {
-				float[] output = neuralnet.GiveOutput (mb.GetSensorInfo ());
+			if (ready && mb.ready) {
+                ChooseNet();
+				output = neuralnet.GiveOutput (mb.GetSensorInfo ());
                 int divider = 1;
                 if (hiddenStructure.Length > 0)
                 {
@@ -26,18 +32,29 @@ namespace Code {
                 {
                     divider = mb.GetSensorInfo().Length;
                 }
-				mb.Move (output, divider, 100);
-			} else {
-				if (mb.ready) {
-					neuralnet = defaultNN ();
-					ready = true;
-				}
+				mb.Move (output, divider, 100); 
 			}
 		}
 
 		public void SetNeuralNet(NeuralNet net) {
 			this.neuralnet = net;
 		}
+
+        public void Breed(NeuralNet[][] parStages)
+        {
+            int dummy = 1;
+            for (int i = 0; i< stages.Length;i++)
+            {
+                stages[i] = new NeuralNet(parStages[i],dummy);
+            }
+        }
+
+        public void ChooseNet()
+        {
+            // DUMMY
+            int net = (int)(Mathf.Max(0, (Mathf.Ceil(Mathf.Sin((mb.eyeSensors[1].distance - mb.eyeSensors[0].distance) * 30)))));
+            neuralnet = stages[net];
+        }
 
 		public void SetMuscledBody(MuscledBody mb) {
 			this.mb = mb;
@@ -60,19 +77,19 @@ namespace Code {
 		}
 
 		private NeuralNet defaultNN() {
-			int inputSize = mb.GetSensorInfo ().Length;
-			int outputSize = mb.GetJoints ().Length;
+            int inputSize = Info.Instance.inputSize;
+			int outputSize = Info.Instance.outputSize;
 			int[] structure = new int[hiddenStructure.Length + 2];
 			structure [0] = inputSize;
 			structure [structure.Length - 1] = outputSize;
 			for (int i = 0; i < hiddenStructure.Length; i++) {
 				structure [i + 1] = hiddenStructure [i];
 			}
-			NeuralNet first = new NeuralNet (structure);
+			NeuralNet first = new NeuralNet (structure,2);
 			return first;
 		}
 
-        public void updateNeuralNet(float randomness)
+        public void RandomizeNeuralNets(float randomness)
         {
             int inputSize = mb.GetSensorInfo().Length;
             int outputSize = mb.GetJoints().Length;
@@ -83,8 +100,19 @@ namespace Code {
                 {
                     structure[i + 1] = hiddenStructure[i];
                 }
-            NeuralNet first = new NeuralNet(structure,randomness);
-            this.neuralnet = first;
+            for (int i = 0; i < stages.Length; i++)
+            {
+                stages[i] = new NeuralNet(structure, randomness);
+            }
+            ChooseNet();
+        }
+
+        public void Mutate()
+        {
+            foreach (NeuralNet net in stages)
+            {
+                net.Mutate();
+            }
         }
     }
 

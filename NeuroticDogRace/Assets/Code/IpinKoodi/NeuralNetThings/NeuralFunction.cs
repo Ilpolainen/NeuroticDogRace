@@ -19,7 +19,7 @@ public class NeuralFunction {
 
 	public static float Mutate (float current, float volume)
 	{
-		return current + ((2 * Random.value-1) * volume);
+		return current + ((2 * (Random.value-0.5f)) * volume);
 	}
 
 	public static NeuralNet Mutate(NeuralNet net, float volume) 

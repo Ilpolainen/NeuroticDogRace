@@ -9,22 +9,51 @@ public class Info : MonoBehaviour {
     public Academy academy;
     public Game game;
     public Transform prefab;
-    public int units;
+    public int unitCount;
+    public int[] unitStatuses;
+    public int[] statusCounts;
+    public int inputSize;
+    public int outputSize;
     public int[] hiddenLayerStructure;
     public float randomness;
+    public int numberOfNeuronMutations;
+    public int netsPerUnit;
+    public Quaternion[] eyeRotations;
+    public List<GameObject> targets;
+    public Transform winner;
     
     // Use this for initialization
 	private void Awake () {
+        netsPerUnit = 2;
+        targets = new List<GameObject>();
+        randomness = 3;
+        numberOfNeuronMutations = 20;
+        statusCounts = new int[5];
 		if (Instance == null)
         {
             Instance = this;
-            units = 1;
+            unitCount = 1;
             DontDestroyOnLoad(gameObject);
         } else
         {
             Destroy(gameObject);
         }
 	}
+
+    public void Start()
+    {
+
+    }
+
+    public void ResetToInitial()
+    {
+        unitCount = 1;
+        netsPerUnit = 2;
+        targets = new List<GameObject>();
+        randomness = 3;
+        numberOfNeuronMutations = 20;
+        statusCounts = new int[5];
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -40,5 +69,33 @@ public class Info : MonoBehaviour {
             structure = structure + "|" + value;
         }
         Debug.Log(structure);
+    }
+
+    public void UpdateStatuses()
+    {
+        for (int i = 0; i < unitCount;i++)
+        {
+            unitStatuses[i] = academy.units[i].transform.GetComponentInChildren<IndividualInfo>().status;
+        }
+        UpdateStatusCounts();
+    }
+
+    void UpdateStatusCounts()
+    {
+        ClearStatusCounts();
+        foreach (Transform unit in academy.units)
+        {
+            //Debug.Log(unit.transform.GetComponentInChildren<IndividualInfo>().status);
+            statusCounts[unit.transform.GetComponentInChildren<IndividualInfo>().status] += 1;
+            //Debug.Log(statusCounts[unit.transform.GetComponentInChildren<IndividualInfo>().status]);
+        }
+    }
+
+    public void ClearStatusCounts()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            statusCounts[i] = 0;
+        }
     }
 }

@@ -11,10 +11,6 @@ public class NeuralNet {
 	[XmlArrayItem("layer")]
 	public Layer[] layers;
 
-	[XmlArray("netOutputWeights")]
-	[XmlArrayItem("weight")]
-	public float[] outputWeights;
-
 	[XmlAttribute("Value")]
 	public float value;
 
@@ -27,38 +23,17 @@ public class NeuralNet {
 	}
 
 
-	public NeuralNet(int[] structure) {
-		value = 0;
+	public NeuralNet(int[] structure, float randomness) {
+        //Debug.Log("FROM NEURALNET:");
+        //Debug.Log("NEW RANDOM NET");
+        value = 0;
 		layers = new Layer[structure.Length - 1];
 		for (int i = 1; i < structure.Length-1; i++) {
-			layers [i - 1] = new Layer(structure [i], structure [i - 1],0);
+			layers [i - 1] = new Layer(structure [i], structure [i - 1],0,randomness);
 		}
-        layers[structure.Length - 2] = new Layer(structure[structure.Length - 1], structure[structure.Length - 2], 1);
-		outputWeights = new float[structure[structure.Length - 1]];
-		NeuralUtilities.RandomWeights (3, outputWeights);
+        layers[structure.Length - 2] = new Layer(structure[structure.Length - 1], structure[structure.Length - 2], 1,randomness);
 	}
 
-    public NeuralNet(int[] structure, float randomness)
-    {
-        value = 0;
-        if (structure.Length > 0)
-        {
-
-        }
-        layers = new Layer[structure.Length - 1];
-        for (int i = 1; i < structure.Length - 1; i++)
-        {
-            layers[i - 1] = new Layer(structure[i], structure[i - 1], 0);
-        }
-        layers[structure.Length - 2] = new Layer(structure[structure.Length - 1], structure[structure.Length - 2], 1);
-        outputWeights = new float[structure[structure.Length - 1]];
-        NeuralUtilities.RandomWeights(randomness, outputWeights);
-    }
-
-    void DebugLastNeuron() {
-		Layer last = layers [layers.Length - 1];
-		Neuron neuron = last.neurons [last.neurons.Length - 1];
-	}
 
 	public NeuralNet(NeuralNet neuralnet) {
 		value = 0;
@@ -66,13 +41,54 @@ public class NeuralNet {
 		for (int i = 0; i < layers.Length; i++) {
 			layers [i] = new Layer(neuralnet.GetLayers () [i]);
 		}
-		this.outputWeights = new float[neuralnet.outputWeights.Length];
-		for (int i = 0; i < outputWeights.Length; i++) {
-			this.outputWeights [i] = neuralnet.outputWeights [i];
-		}
-
 		id = neuralnet.id;
 	}
+
+    public NeuralNet(NeuralNet[] parents, int id)
+    {
+        //Debug.Log("FROM NEURALNET:");
+        //Debug.Log("NEW CHILD OF " + parents.Length + " PARENTS!");
+        value = 0;
+        layers = new Layer[parents[0].GetLayers().Length];
+        for (int i = 0; i < layers.Length; i++)
+        {
+            layers[i] = new Layer(parents[0].GetLayers()[i]);
+        }
+        for (int l = 0; l < layers.Length; l++)
+        {
+            for (int n = 0; n < layers[l].neurons.Length;n++)
+            {
+                for (int w = 0; w < layers[l].neurons[n].weights.Length; w++)
+                {
+                    layers[l].neurons[n].weights[w] = 0;
+                }
+            }
+        }
+        for (int p = 0; p < parents.Length; p++)
+        {
+            for (int l = 0; l < layers.Length; l++)
+            {
+                for (int n = 0; n < layers[l].neurons.Length; n++)
+                {
+                    for (int w = 0; w < layers[l].neurons[n].weights.Length; w++)
+                    {
+                        layers[l].neurons[n].weights[w] = layers[l].neurons[n].weights[w] + parents[p].layers[l].neurons[n].weights[w];
+                    }
+                }
+            }
+        }
+        for (int l = 0; l < layers.Length; l++)
+        {
+            for (int n = 0; n < layers[l].neurons.Length; n++)
+            {
+                for (int w = 0; w < layers[l].neurons[n].weights.Length; w++)
+                {
+                    layers[l].neurons[n].weights[w] = layers[l].neurons[n].weights[w]/2;
+                }
+            }
+        }
+        this.id = id;
+    }
 
 	public float[] GiveOutput(float[] input) 
 	{
@@ -80,20 +96,8 @@ public class NeuralNet {
 			Debug.LogError ("First layer's input size doesn't match given input");
 			return null;
 		} else {
-			output = GiveRecursiveOutput (input, layers.Length - 1);
-			//Let's try without outputweights
-			//output [i] = output [i] * outputWeights [i];
-
-			//DEBUGGING
-//			if (Time.frameCount % 100 == 0){
-//				for (int i = 0; i < output.Length; i++) {
-//					Debug.Log ("FROM NEURALNET GIVEOUTPUT: " + output [i]);
-//	
-//				}
-//			}
-
-			return output;
-		}
+            return GiveRecursiveOutput(input, layers.Length - 1);
+        }
 	}
 
 	public float[] GiveRecursiveOutput(float[] input, int i) {
@@ -104,16 +108,16 @@ public class NeuralNet {
 		}
 	}
 
-	public NeuralNet Divide(int mutationCount, float neuronVolume, int outPutAmounts, float outputVolume) 
+	public NeuralNet Mutate() 
 	{
+        //Debug.Log("FROM NEURALNET:");
+        //Debug.Log("NEW MUTATED NETWORK!");
 		NeuralNet mutated = new NeuralNet (this);
-		for (int i = 0; i < mutationCount - 1; i++) {
-			Layer l = mutated.GetLayers () [Random.Range (0, mutated.GetLayers ().Length - 1)];
-			Neuron n = l.GetNeurons () [Random.Range (0, l.GetNeurons ().Length - 1)];
-			n.Mutate (Random.Range(0,n.weights.Length-1),neuronVolume);
+		for (int i = 0; i < Info.Instance.numberOfNeuronMutations; i++) {
+			Layer l = mutated.GetLayers () [Random.Range (0, mutated.GetLayers ().Length)];
+			Neuron n = l.GetNeurons () [Random.Range (0, l.GetNeurons ().Length)];
+			n.Mutate (Random.Range(0,n.weights.Length),Info.Instance.randomness);
 		}
-		MutateOutputWeights (mutated, outPutAmounts, outputVolume);
-		
 		return mutated;
 	}
 
@@ -124,27 +128,38 @@ public class NeuralNet {
 
 
 
-	public void MutateOutputWeights(NeuralNet mutated, float count, float volume) {
-		for (int i = 0; i < count; i++) {
-			int weight = Random.Range (0, outputWeights.Length - 1);
-			//Debug.Log((2 * Random.value - 1) * volume);
-			mutated.outputWeights [weight] = outputWeights [weight] + ((2*Random.value - 1) * volume);
-
-		}
-
-
-	}
 	// SETTERS AND GETTERS
 
 	public void SetId(int i) {
 		id = i;
 	}
 
-	public void SetOutputWeights(float[] weights) {
-		this.outputWeights = weights;
-	}
 
-	public void SetValue(float v) {
+    void DebugLastNeuron()
+    {
+        Layer last = layers[layers.Length - 1];
+        Neuron neuron = last.neurons[last.neurons.Length - 1];
+    }
+
+    public void SetValue(float v) {
 		value = v;
 	}
+
+    public ArrayList GetWeightMatrices()
+    {
+        ArrayList matrices = new ArrayList();
+        foreach (Layer layer in layers)
+        {
+            Neuron[] neurons = layer.neurons;
+            int width = neurons[0].GetWeights().Length;
+            float[][] weights = new float[neurons.Length][];
+            for (int i=0;i <neurons.Length; i++)
+            {
+                weights[i] = neurons[i].weights;
+            }
+            matrices.Add(weights);
+        }
+        return matrices;
+    }
+
 }

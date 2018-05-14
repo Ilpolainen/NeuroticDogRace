@@ -20,7 +20,7 @@ namespace NewCode
 
         void OnMouseDown()
         {
-            SetTouchColor(Color.cyan);
+            SetTouchColor(Color.white);
         }
 
         void OnMouseUp()
