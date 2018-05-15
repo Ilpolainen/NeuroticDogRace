@@ -1,2 +1,2 @@
-# NeuralHorses
-This can become a medieval tourney game, but first it is a project for neural net steered horse-thing with Unity.
+# NeuroticDogRace
+Game about trying to train a four-legged Unity physics- and joint- based creatures to move and reach goal and finally competeing with them.
