@@ -37,7 +37,8 @@ public abstract class MuscledBody : MonoBehaviour {
 		SetMotors ();
         StoreInitialPositions();
         ready = true;
-	}
+        UpdateSensors();
+    }
     
     public void ReRunStart()
     {
@@ -53,6 +54,7 @@ public abstract class MuscledBody : MonoBehaviour {
         SetMotors();
         StoreInitialPositions();
         ready = true;
+        UpdateSensors();
     }
 
 	void FixedUpdate()
@@ -191,10 +193,7 @@ public abstract class MuscledBody : MonoBehaviour {
 		touches = physGo.transform.GetComponentsInChildren<Touch> ();
 	}
 
-	public virtual int xyz()
-	{
-		return 0;
-	}
+	
 
 	public virtual void SetSensorInfo () 
 	{

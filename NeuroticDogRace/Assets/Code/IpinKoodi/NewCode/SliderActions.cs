@@ -19,6 +19,7 @@ public class SliderActions : MonoBehaviour {
         layerSliders = GetLayerSliders();
         SetTexts();
         hiddenLayerStructure = new int[5];
+        Info.Instance.hiddenLayerStructure = hiddenLayerStructure;
         HideLayerSlides(0);
     }
 
@@ -56,7 +57,7 @@ public class SliderActions : MonoBehaviour {
             VisualizeRenderers(layerSliders[i],true);
         }
         HideLayerSlides((int)layers);
-        // DebugStructure();
+        DebugStructure();
     }
 
     public void ChangeFirstLayerNeuronCount(float neurons)

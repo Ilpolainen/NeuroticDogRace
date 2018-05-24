@@ -11,17 +11,22 @@ public class Game : MonoBehaviour {
     public Action currentAction;
     public bool winnerFound;
     Text gameOver;
+    Text debug;
 
     // Use this for initialization
     void Start () {
+        debug = GameObject.Find("DebugText").GetComponentInChildren<Text>();
         if (Info.Instance == null)
         {
-            CreateDummyInfo();
+            debug.text= "No Info Created";
+        } else
+        {
+            gameOver = GameObject.Find("Game Over").GetComponentInChildren<Text>();
+            gameOver.text = " ";
         }
         ConstructActions();
         Info.Instance.game = this;
-        gameOver = GameObject.Find("Game Over").GetComponentInChildren<Text>();
-        gameOver.text = " ";
+        
 	}
 	
 	// Update is called once per frame

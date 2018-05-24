@@ -24,25 +24,29 @@ public class Info : MonoBehaviour {
     
     // Use this for initialization
 	private void Awake () {
-        netsPerUnit = 2;
-        targets = new List<GameObject>();
-        randomness = 3;
-        numberOfNeuronMutations = 20;
-        statusCounts = new int[5];
-		if (Instance == null)
+        if (Instance == null)
         {
             Instance = this;
+            netsPerUnit = 2;
+            targets = new List<GameObject>();
+            randomness = 3;
+            numberOfNeuronMutations = 20;
+            statusCounts = new int[5];
             unitCount = 1;
             DontDestroyOnLoad(gameObject);
-        } else
+        }
+        else
         {
             Destroy(gameObject);
         }
-	}
+    }
 
     public void Start()
     {
-
+        netsPerUnit = 2;
+        randomness = 3;
+        numberOfNeuronMutations = 20;
+        unitCount = 1;
     }
 
     public void ResetToInitial()

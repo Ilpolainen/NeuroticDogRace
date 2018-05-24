@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+
 namespace Code {
 
 	public class Mind2 : MonoBehaviour {
 
+        Text debug;
 		public NeuralNet neuralnet;
         public NeuralNet[] stages;
 		private MuscledBody mb;
@@ -91,11 +94,20 @@ namespace Code {
 
         public void RandomizeNeuralNets(float randomness)
         {
+            debug = GameObject.Find("DebugText").GetComponentInChildren<Text>();
+            if (mb == null)
+            {
+                mb = gameObject.GetComponent<MuscledBody>();
+            }
             int inputSize = mb.GetSensorInfo().Length;
             int outputSize = mb.GetJoints().Length;
             int[] structure = new int[hiddenStructure.Length + 2];
             structure[0] = inputSize;
             structure[structure.Length - 1] = outputSize;
+            if (stages == null)
+            {
+                stages = new NeuralNet[Info.Instance.netsPerUnit];
+            }
             for (int i = 0; i < hiddenStructure.Length; i++)
                 {
                     structure[i + 1] = hiddenStructure[i];

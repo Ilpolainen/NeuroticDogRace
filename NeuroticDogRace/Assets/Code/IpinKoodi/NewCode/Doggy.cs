@@ -11,10 +11,7 @@ namespace Code {
 
 			
 
-		public override int xyz()
-		{
-			return 0;
-		}
+		
 
 	}
 }

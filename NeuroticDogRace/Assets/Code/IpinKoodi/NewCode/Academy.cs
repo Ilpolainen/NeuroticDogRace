@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Code;
 using NewCode;
 
@@ -9,8 +10,10 @@ public class Academy : MonoBehaviour {
     public Transform[] units;
     public Action currentAction;
     public Transform prefab;
+    Text debug;
 	// Use this for initialization
 	void Start () {
+        debug = GameObject.Find("DebugText").GetComponentInChildren<Text>();
         if (Info.Instance != null)
         {
             Info.Instance.prefab = prefab;
@@ -18,6 +21,9 @@ public class Academy : MonoBehaviour {
             units = Creator.BuildUnitsInRow(prefab, new Vector3(0, 0.2f, 0), 8);
             prefab.gameObject.SetActive(false);
             Info.Instance.academy = this;
+        } else
+        {
+            
         }
         Vector3 goalOffset = new Vector3(0, 0, -16);
         SetTargetsAndGoal(goalOffset);
@@ -37,7 +43,10 @@ public class Academy : MonoBehaviour {
     {
             Mind2 mind = prefab.GetComponentInChildren<Mind2>();
             mind.hiddenStructure = Info.Instance.hiddenLayerStructure;
-            mind.RandomizeNeuralNets(Info.Instance.randomness);
+        //debug.text = "" + mind.gameObject.GetComponent<MuscledBody>() + " is not null!";
+        // NEXT LINE DOESN'T EXECUTE IN BUILD
+        mind.RandomizeNeuralNets(Info.Instance.randomness);
+            
     }
     // Update is called once per frame
 
