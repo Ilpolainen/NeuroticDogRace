@@ -94,7 +94,7 @@ namespace Code {
 
         public void RandomizeNeuralNets(float randomness)
         {
-            debug = GameObject.Find("DebugText").GetComponentInChildren<Text>();
+
             if (mb == null)
             {
                 mb = gameObject.GetComponent<MuscledBody>();

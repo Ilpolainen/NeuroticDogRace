@@ -26,7 +26,7 @@ public class SliderActions : MonoBehaviour {
     void SetTexts()
     {
         Neurons = new Text[layerSliders.Length];
-        hiddenLayerCounttext = GameObject.Find("Hidden Layer Count").GetComponent<Text>();
+        hiddenLayerCounttext = GameObject.Find("Hidden Layer Count (Value)").GetComponent<Text>();
         randomtext = GameObject.Find("Random Value").GetComponent<Text>();
         unittext = GameObject.Find("Units COUNTER").GetComponent<Text>();
         neuroncountstartingtexts = new string[layerSliders.Length];
@@ -57,42 +57,42 @@ public class SliderActions : MonoBehaviour {
             VisualizeRenderers(layerSliders[i],true);
         }
         HideLayerSlides((int)layers);
-        DebugStructure();
+        //DebugStructure();
     }
 
     public void ChangeFirstLayerNeuronCount(float neurons)
     {
         hiddenLayerStructure[0] = (int)neurons;
         Neurons[0].text = neuroncountstartingtexts[0] + " " + neurons;
-        DebugStructure();
+        //DebugStructure();
     }
 
     public void ChangeSecondLayerNeuronCount(float neurons)
     {
         hiddenLayerStructure[1] = (int)neurons;
         Neurons[1].text = neuroncountstartingtexts[1] + " " + neurons;
-        DebugStructure();
+        //DebugStructure();
     }
 
     public void ChangeThirdLayerNeuronCount(float neurons)
     {
         hiddenLayerStructure[2] = (int)neurons;
         Neurons[2].text = neuroncountstartingtexts[2] + " " + neurons;
-        DebugStructure();
+        //DebugStructure();
     }
 
     public void ChangeFourthLayerNeuronCount(float neurons)
     {
         hiddenLayerStructure[3] = (int)neurons;
         Neurons[3].text = neuroncountstartingtexts[3] + " " + neurons;
-        DebugStructure();
+        //DebugStructure();
     }
 
     public void ChangeFifthLayerNeuronCount(float neurons)
     {
         Neurons[4].text = neuroncountstartingtexts[4] + " " + neurons;
         hiddenLayerStructure[4] = (int)neurons;
-        DebugStructure();
+        //DebugStructure();
     }
 
     void HideLayerSlides(int from)

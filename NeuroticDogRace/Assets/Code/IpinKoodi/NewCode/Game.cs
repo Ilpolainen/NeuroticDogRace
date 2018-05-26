@@ -15,10 +15,9 @@ public class Game : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        debug = GameObject.Find("DebugText").GetComponentInChildren<Text>();
         if (Info.Instance == null)
         {
-            debug.text= "No Info Created";
+            
         } else
         {
             gameOver = GameObject.Find("Game Over").GetComponentInChildren<Text>();

@@ -18,9 +18,22 @@ namespace NewCode
             renderers = parent.GetComponentsInChildren<Renderer>();
         }
 
+        void Update()
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                RaycastHit hitInfo = new RaycastHit();
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo) && hitInfo.transform.tag == "PrefabArmature")
+                {
+                    print("It's working");
+                }
+            }
+        }
+
         void OnMouseDown()
         {
             SetTouchColor(Color.white);
+            Debug.Log("Click!");
         }
 
         void OnMouseUp()

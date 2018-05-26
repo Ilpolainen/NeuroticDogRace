@@ -13,7 +13,7 @@ public class Academy : MonoBehaviour {
     Text debug;
 	// Use this for initialization
 	void Start () {
-        debug = GameObject.Find("DebugText").GetComponentInChildren<Text>();
+
         if (Info.Instance != null)
         {
             Info.Instance.prefab = prefab;
