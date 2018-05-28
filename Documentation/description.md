@@ -14,4 +14,10 @@ Last but not least I had to design the actual game logic consisting of tuning th
 
 ![luokkadiagrammi](ClassDiagram.JPG)
 
+## Technical choices
 
+The game was made with Unity using it's physics engine and a lot of self implemented coding. I decided to use a Singelton class named Info. Through that I could access variables that had to be as global as possible and they had to follow from scene to scene. I decided not to use any fancy ready made assets. The only asset I used in addition the Unity game engine itself and it's components like U.I and terrain etc. was a 3d model apple which I asked my girlfriend to model with Blender. The doggy was made of Unity cubes and two balls as Eyes. The sensorinfo that the dog had was the current position of it's joints, basic raycastInfo "through eyes", the rotation of the torso and touch booleans for each limb.
+
+## Technical Problems and Testing
+
+Unit tests can be done with Unity but I used I used them quite a little and mainly to check out if the Neural Networks behaved like they was supposed to. Instead I made a lot of debugging with Debug.Log() -function. There were so many issues that they are impossible to mention them all or it would take a book to write about them. Hardest things were coping with Unitys excecution order. I had to make sure that everything was constructed in right order so that there would be no null-pointers. In this complex construction it was sometimes hard. The last very annoying thing was that in the platform build the execution order was different from the editor play execution order. I had to read a lot of Log -reports and proceed line after line to find what happened in bug situations.
