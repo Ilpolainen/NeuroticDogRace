@@ -27,6 +27,8 @@ public class Game : MonoBehaviour {
         Info.Instance.game = this;
         
 	}
+
+    
 	
 	// Update is called once per frame
 	

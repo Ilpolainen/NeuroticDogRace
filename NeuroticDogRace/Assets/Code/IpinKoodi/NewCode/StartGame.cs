@@ -47,6 +47,10 @@ public class StartGame : MonoBehaviour {
         armature.SetActive(false);
     }
 
+    public void Exit()
+    {
+        Application.Quit();
+    }
 
     public void startTheGame()
     {

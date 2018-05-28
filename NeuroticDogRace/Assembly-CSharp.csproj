@@ -75,6 +75,7 @@
     <Compile Include="Assets\Code\IpinKoodi\NewCode\Actions\MarkDesposable.cs" />
     <Compile Include="Assets\Code\IpinKoodi\NewCode\Actions\SetAsChild.cs" />
     <Compile Include="Assets\Code\IpinKoodi\NewCode\Actions\SetAsMutated.cs" />
+    <Compile Include="Assets\Code\IpinKoodi\NewCode\Beginning.cs" />
     <Compile Include="Assets\Code\IpinKoodi\NewCode\Creator.cs" />
     <Compile Include="Assets\Code\IpinKoodi\NewCode\Doggy.cs" />
     <Compile Include="Assets\Code\IpinKoodi\NewCode\EyeRotator.cs" />
