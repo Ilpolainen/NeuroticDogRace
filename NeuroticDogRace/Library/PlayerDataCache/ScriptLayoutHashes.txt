@@ -1,6 +1,6 @@
-WindowsStandalone
+OSXStandalone
 PlayerPath?
-C:/Users/Ilmari Pohjola/Documents/Github/MunRepot/NeuroticDogRace/NeuroticDogRace/NeuroticDogRace.exe
+C:/Users/Ilmari Pohjola/Documents/Github/MunRepot/NeuroticDogRace/NeuroticDogRace.app
 SceneListBegin?
 Assets/Scenes/StartingScene.unity
 Assets/Scenes/ConfigurationStage.unity
