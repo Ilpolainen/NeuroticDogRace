@@ -15,7 +15,7 @@
 - Palasen tippumisnopeuden lisääminen
 - Pelin keskeyttäminen
 
-![luokkadiagrammi](DogPic.jpg)
+![luokkadiagrammi](DogPic.JPG)
 
 
 ##Rakennekuvaus
