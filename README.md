@@ -8,6 +8,6 @@ The complexity of the brain will affect the behaviour of the creatures. More com
 
 You have some basic tools and ways to mutate the population. The creatures can be totally discarded and new totally random creatures will be born instead. Some of them you m ight want to keep, and just mutate them a bit. And some individuals seem to be good parents for a new baby. These creatures are not limited to bipolar breeding but instead multiple parents can be chosen for a new baby. But be aware, as the population size is stable, someone has to die to give space for the newborn."
 
-[Project description and documentation](NeuroticDogRace/documentation/description.md)
+[Project description and documentation](Documentation/description.md)
 
 ![Dog](Documentation/DogPic.JPG)
