@@ -10,3 +10,4 @@ You have some basic tools and ways to mutate the population. The creatures can b
 
 [Project description and documentation](documentation/description.md)
 
+(documentation/DogPic.JPG)
