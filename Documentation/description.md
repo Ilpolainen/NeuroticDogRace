@@ -1,6 +1,6 @@
-#Aihemäärittely
+# Project Overview
 
-**Project:** This project was very challenging indeed. It consisted of four major parts. 
+This project was very challenging indeed. It consisted of four major parts. 
 
 First thing was construct a rag-doll-type four-legged creature with Unity joints. But it had to be steerable with motors so no ordinary ragdoll could be used but I had to construct it with hinge-joints. 
 
