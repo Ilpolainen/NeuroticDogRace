@@ -109,7 +109,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 492}
   m_MaxSize: {x: 14004, y: 14042}
   vertical: 0
-  controlID: 4247
+  controlID: 725
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 4358
+  controlID: 726
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 221}
   m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 4359
+  controlID: 678
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -365,9 +365,9 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: c83effff
-    m_LastClickedID: -49464
-    m_ExpandedIDs: d03dffffd43dffffd63dffffd83dfffffe3dffff003effff083effff243effff2c3effff343effffc63effffc83effffc664ffffda64ffffee64fffff064fffff0fbffff000000007c2d0000
+    m_SelectedIDs: 
+    m_LastClickedID: 0
+    m_ExpandedIDs: 52daffffb8dcfffff0fbffff000000007e2d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -386,7 +386,7 @@ MonoBehaviour:
       m_ClientGUIView: {fileID: 8}
     m_SearchString: 
   m_ExpandedScenes:
-  - StartingScene
+  - ConfigurationStage
   m_CurrenRootInstanceID: 0
   m_LockTracker:
     m_IsLocked: 0
@@ -527,9 +527,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -0.00696671, y: 2.2367606, z: 1.9535432}
+    m_Target: {x: -1.2155094, y: -0.0031647682, z: 8.919317}
     speed: 2
-    m_Value: {x: -0.00696671, y: 2.2367606, z: 1.9535432}
+    m_Value: {x: -1.2155094, y: -0.0031647682, z: 8.919317}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -557,13 +557,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.08717229, y: 0.89959055, z: -0.21045254, w: -0.3726226}
+    m_Target: {x: -0.2556489, y: 0.644411, z: -0.24278603, w: -0.6785522}
     speed: 2
-    m_Value: {x: -0.08717229, y: 0.89959055, z: -0.21045254, w: -0.3726226}
+    m_Value: {x: -0.2556489, y: 0.6444111, z: -0.24278605, w: -0.6785522}
   m_Size:
-    m_Target: 11.465573
+    m_Target: 21.39426
     speed: 2
-    m_Value: 11.465573
+    m_Value: 21.39426
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -637,20 +637,20 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Prefabs
+    - Assets/Scenes
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Prefabs
+  - Assets/Scenes
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\Ilmari Pohjola\Documents\Github\MunRepot\NeuroticDogRace\NeuroticDogRace
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 43}
-    m_SelectedIDs: 002d0000
-    m_LastClickedID: 11520
-    m_ExpandedIDs: 00000000482a0000bc2a0000562b0000362c0000002d0000b02d0000b22d0000b42d0000b62d0000b82d0000ba2d0000bc2d0000be2d0000c02d0000c22d0000c42d0000c62d0000c82d000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 52}
+    m_SelectedIDs: 562c0000
+    m_LastClickedID: 11350
+    m_ExpandedIDs: 00000000462a0000ba2a0000542b0000342c0000fe2c0000c02e0000c22e0000c42e0000c62e0000c82e0000ca2e0000cc2e0000ce2e0000d02e0000d22e0000d42e0000d62e0000d82e000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -678,7 +678,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000482a0000bc2a0000562b0000362c0000002d0000b02d0000b22d0000b42d0000b62d0000b82d0000ba2d0000bc2d0000be2d0000c02d0000c22d0000c42d0000c62d0000c82d000000ca9a3bffffff7f
+    m_ExpandedIDs: 00000000462a0000ba2a0000542b0000342c0000fe2c0000c02e0000c22e0000c42e0000c62e0000c82e0000ca2e0000cc2e0000ce2e0000d02e0000d22e0000d42e0000d62e0000d82e000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
