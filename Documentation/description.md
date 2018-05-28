@@ -10,7 +10,7 @@ The third phase was to implement an easily extendable neural network which would
 
 Last but not least I had to design the actual game logic consisting of tuning the parameters and the shape of the networks, choosing the amount of the doggys and adjusting the eyesensors in the beginning of the game. After that started the actual game where I had to implement some kind of training tools. At the moment they are randomizing a new network, mutating an existing one with tunable parameters, cross breeding two or more units and finally generating the next generation.
 
-##Class diagram of the interesting parts of the game.
+## Class diagram of the interesting parts of the game.
 
 ![luokkadiagrammi](ClassDiagram.JPG)
 
