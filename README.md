@@ -6,6 +6,7 @@ This is an experimental game made with Unity. It consists of implementation of n
 
 ### [Project description and documentation](Documentation/description.md)
 
+
 "You are the purpose of life. From now on you will decide if this mindless organism is worthy of staying alive and it's  genes are to be passed ahead. You will decide which ones are useless mutations that are to be discarded and how strong the next mutations will be. You will also get to choose the complexity of their brains and the size of the population as you are nearly god.
 
 The complexity of the brain will affect the behaviour of the creatures. More complexity means also more capability for complex action. However the evolvement of complex systemscan be slower.
