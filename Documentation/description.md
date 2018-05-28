@@ -15,9 +15,7 @@
 - Palasen tippumisnopeuden lisääminen
 - Pelin keskeyttäminen
 
-![luokkadiagrammi](TetrisClassDiagram.jpg)
-![käynnistyssekvenssikaavio](TetrisSetupSequenceDiagram.jpg)
-![CommandDownSekvenssikaavio](CommandDownStandardSequenceDiagram.jpg)
-![DestroyRowsSekvenssikaavio](DestroyRowsSequenceDiagram.jpg)
+![luokkadiagrammi](DogPic.jpg)
+
 
 ##Rakennekuvaus
