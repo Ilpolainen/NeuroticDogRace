@@ -4,7 +4,7 @@
 
 This is an experimental game made with Unity. It consists of implementation of neural network which is used to steer four-legged physics- and joint- based creatures.
 
-**[Project description and documentation]**(Documentation/description.md)
+### [Project description and documentation](Documentation/description.md)
 
 "You are the purpose of life. From now on you will decide if this mindless organism is worthy of staying alive and it's  genes are to be passed ahead. You will decide which ones are useless mutations that are to be discarded and how strong the next mutations will be. You will also get to choose the complexity of their brains and the size of the population as you are nearly god.
 
