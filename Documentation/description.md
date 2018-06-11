@@ -20,4 +20,6 @@ The game was made with Unity using it's physics engine and a lot of self impleme
 
 ## Technical Problems and Testing
 
+Main problem with the game for now is bad interface. The use of UI is lousy because I have concentrated on other things. Especially there are problems with selecting the creatures as the UI elements harass the OnClick() -event on the creatures. Also the camera steering is a bad omåplementation from me. It needs to be more fun.
+
 Unit tests can be done with Unity but I used I used them quite a little and mainly to check out if the Neural Networks behaved like they was supposed to. Instead I made a lot of debugging with Debug.Log() -function. There were so many issues that they are impossible to mention them all or it would take a book to write about them. Hardest things were coping with Unitys excecution order. I had to make sure that everything was constructed in right order so that there would be no null-pointers. In this complex construction it was sometimes hard. The last very annoying thing was that in the platform build the execution order was different from the editor play execution order. I had to read a lot of Log -reports and proceed line after line to find what happened in bug situations.
